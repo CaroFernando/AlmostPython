@@ -1,0 +1,11 @@
+
+Declare String s, Integer x, Decimal f
+Assign s = "Hola", x = 1, f = 9.9
+Add s:" Mundo", x:2, f:1.0
+Subtract x:1, f:12.0
+Declare Integer p, p2
+Read p, p2
+Print "P: ", p, ", P2: ", p2
+Return
+
+
