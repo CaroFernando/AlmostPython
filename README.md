@@ -1,4 +1,4 @@
-##Descripción de sintaxis
+## Descripción de sintaxis
 | Estructuras de control |
 | --- |
 | For |
