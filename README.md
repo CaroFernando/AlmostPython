@@ -1,6 +1,11 @@
-## ALGO POR AQUI
+##Descripción de sintaxis
+| Estructuras de control |
+| --- |
+| For |
+| While |
+| If |
+| Else |
+| Elseif |
+| Break |
+| Do While |
 
-El proyect es un interprete
-IDK
-
-### QUE SE VEA PRRON
