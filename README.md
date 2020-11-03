@@ -1,4 +1,15 @@
 ## Descripción de sintaxis
+
+| Declaración y asignación |
+| Declare +  " " + string,int,char,etc + nombre_variable |
+| Assign |
+| Delete |
+| Add |
+| Subtract |
+| Read |
+| Print |
+| Return |
+
 | Estructuras de control |
 | --- |
 | For |
