@@ -2,12 +2,12 @@
 
 | Declaración y asignación |
 | --- |
-| Declare +  " " + string,int,char,etc + nombre_variable |
-| Assign |
-| Delete |
-| Read |
-| Print |
-| Return |
+| Declare |string,int,char,etc + nombre_variable|
+| Assign |"="|
+| Delete |"delete"|
+| Read |"cin"|
+| Print |"cout"|
+| Return |"return"|
 
 | Estructuras de control |
 | --- |
