@@ -1,8 +1,8 @@
 
 Declare String s, Integer x, Decimal f
 Assign s = "Hola", x = 1, f = 9.9
-Add s:" Mundo", x:2, f:1.0
-Subtract x:1, f:12.0
+Assign s = s + " Mundo", x = x + 2, f = f + 1.0
+Assign x = x + 1, f = f + 12.0
 Declare Integer p, p2
 Read p, p2
 Print "P: ", p, ", P2: ", p2
