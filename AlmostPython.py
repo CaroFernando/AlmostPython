@@ -9,51 +9,20 @@ vars = dict() # diccionario de variables {"nombre de variable": "valor de varial
 i = 0
 accion = ''
 
-# FUNCTIONS
-
 # Declaracion y Asignacion
-
+"""
 def Declare(line):
-    actual = ""
-    for word in line:
-        if actual != "":
-            pass
-        elif word == "String":  # Declarar Strings
-            
-        elif word == "Integer": # Declarar Int
-
-        else:
-            print("ERORRRRRR")
-    return True
-
 def Assign(line):
-    pass
-
 def Delete():
-    pass
-
 def Read():
-    pass
-
 def Print(line):
-    pts = line.split(" ")
-    print(pts[1])
-
 def Return():
-    pass    
-
+"""
 # Estructuras de Control
-
+"""
 def Execute_line(line):
-    # funcion para ejecutar una line
-    # esta funcion llama a las funcinoes de palabras reservadas
-    pass
-
 def For():
-    # Estructura de estructuras de control
-    # estas funciones llaman a execute_line
-    pass
-
+"""
 
 
 # MAIN
