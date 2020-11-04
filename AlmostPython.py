@@ -1,7 +1,7 @@
 # LIBRARIES
 
 import sys
-
+import Functions 
 
 # VARIABLES
 
@@ -43,13 +43,10 @@ if __name__ == "__main__":
         accion = comandos[0]
         comandos = comandos[1:]
         
-        print(comandos)
-        """for comando in comandos:
-            print(comando, end = ' ')
-        print()"""
+        #print(comandos)
 
         if accion == "Declare":
-            Declare(comandos);
+            Functions.Declare(vars,comandos);
 
 
     file.close()

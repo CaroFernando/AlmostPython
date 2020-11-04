@@ -1,7 +1,7 @@
 ### Descripción de sintaxis
 
-| Declaración y asignación |
-| --- |
+| Declaración y asignación | Type |
+| --- | --- |
 | Declare |string,int,char,etc + nombre_variable|
 | Assign |"="|
 | Delete |"delete"|
