@@ -4,17 +4,21 @@
 
 def SepararComasEspacios(words):
     s = list()
+    aux = ''
+    for c in words:
+        if c == '=' or c == ',' or c == ':':
+            aux+=' '+c+' '
+        else:
+            aux+=c
+    words = aux.split(' ')
+    if '' in words: words.remove('')
+    if ',' in words: words.remove(',')
     for word in words:
-        word.replace("="," = ")
-        word.replace(","," , ")
-        print(word)
         cosas = word.split(",")
         for cosa in cosas:
-            if cosa != '':
+            if cosa != '' and cosa != ',' and cosa != ' ':
                 s.append(cosa)
     return s
-
-
 
 # Declaracion y Asignacion
 
@@ -22,7 +26,7 @@ VarVals = ["String","Integer","Decimal"]
 
 def InitVars(vars):
     for val in VarVals:
-        vars[val] = list()
+        vars[val] = dict()
     return
 
 def ShowVars(vars):
@@ -38,11 +42,9 @@ def Declare(vars,line):
     if vars == dict():
         InitVars(vars)
     actual = ""
-    print(line)
     line = SepararComasEspacios(line)
     for index in range(len(line)):
         word = line[index]
-        print(actual,word)
         # ASIGNACION
         if word == '=': continue
         if index > 1 and line[index-1] == '=': continue
@@ -51,12 +53,18 @@ def Declare(vars,line):
             actual = word      
         elif actual != "":
             val = ConvertType(actual)
-            if index < len(line)-2 and line[index-1] == '=':
-                val = ConvertType(actual,line[index+2]) 
-            vars[actual].append([word,val])
+            if index < len(line)-2 and line[index+1] == '=':
+                val = ConvertType(actual,line[index+2])
+                if actual == "String":
+                    if val[0] != '"':
+                        print("ERORRRRRR")
+                        return
+                    val = val[1:len(val)-1]
+
+            vars[actual][word] = val
         else:
             print("ERORRRRRR")
-    ShowVars(vars)
+    # ShowVars(vars)
     return True
 
 def Assign(vars,line):

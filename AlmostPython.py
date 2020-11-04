@@ -33,13 +33,24 @@ if __name__ == "__main__":
 
     file = open(file_name, "r")
     for x in file:
+        # Quitar salto de linea del final 
+        if len(x) < 2: continue
+        if(x[len(x)-1]=='\n'): x = x[:len(x)-1]
+
         comandos = x.split(" ")
         if comandos == [''] or len(comandos) == 0:
             continue
+        
+        accion = comandos[0]
+        comandos = comandos[1:]
+
+        comando = ""
+        for c in comandos:
+            comando+=c+' '
         # Leo la accion a ajecutar, y la quito de mis comandos
-        #print(comandos)
         if accion == "Declare":
-            Declare(vars,comandos[1:])
+            # print(comando)
+            Declare(vars,comando)
 
     lines = [i for i in file]
     Execute_block(lines)
