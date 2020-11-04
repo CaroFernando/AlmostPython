@@ -19,7 +19,7 @@ def Declare(vars,line):
     line = SepararComasEspacios(line)
     for word in line:
         if actual != "":
-            
+            vars[actual].append([word,None])
         elif word == "String":  # Declarar Strings
             actual = word      
         elif word == "Integer": # Declarar Int
