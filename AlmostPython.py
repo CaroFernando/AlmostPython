@@ -1,7 +1,12 @@
 # LIBRARIES
 
 import sys
+<<<<<<< HEAD
 import Functions 
+=======
+from ControlStructures import Execute_block
+
+>>>>>>> c0e8ea7bee8f4089b6ea1daca31a8456db28366b
 
 # VARIABLES
 
@@ -24,7 +29,6 @@ def Execute_line(line):
 def For():
 """
 
-
 # MAIN
 
 if __name__ == "__main__":
@@ -32,6 +36,7 @@ if __name__ == "__main__":
     file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 main.py nombre.txt#
 
     file = open(file_name, "r")
+<<<<<<< HEAD
     for x in file:
         # Quitar el salto de linea al final
         x = x[:len(x)-1]
@@ -49,5 +54,9 @@ if __name__ == "__main__":
             Functions.Declare(vars,comandos);
 
 
+=======
+    lines = [i for i in file]
+    Execute_block(lines)
+>>>>>>> c0e8ea7bee8f4089b6ea1daca31a8456db28366b
     file.close()
         
