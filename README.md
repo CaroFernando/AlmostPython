@@ -1,13 +1,14 @@
 ### Descripción de sintaxis
 
-| Declaración y asignación | Type |
+| Declaración y asignación | Tipo |
 | --- | --- |
-| Declare |string,int,char,etc + nombre_variable|
-| Assign |"="|
-| Delete |"delete"|
-| Read |"cin"|
-| Print |"cout"|
-| Return |"return"|
+| Declare | string, int, float + nombre_variable|
+| Assign | "=" |
+| Delete | "del"|
+| Read | "input"|
+| Print | "print"|
+| Return | "return"|
+| ShowVars| "%who" |
 
 | Estructuras de control |
 | --- |
