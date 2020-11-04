@@ -1,0 +1,2 @@
+Declare String s = "Hola"
+Assign s = s+"Mundo"

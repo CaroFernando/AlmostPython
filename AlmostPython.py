@@ -1,7 +1,7 @@
 # LIBRARIES
 
 import sys
-from Functions import Declare,SepararComasEspacios
+from Functions import Declare,Delete,Assign,SepararComasEspacios,ShowVars
 from ControlStructures import Execute_block
 
 # VARIABLES
@@ -51,6 +51,13 @@ if __name__ == "__main__":
         if accion == "Declare":
             # print(comando)
             Declare(vars,comando)
+        elif accion == "Assign":
+            Assign(vars,comando)
+        elif accion == "Delete":
+            Delete(vars,comando)
+        elif accion == "ShowVars":
+            ShowVars(vars)
+
 
     lines = [i for i in file]
     Execute_block(lines)

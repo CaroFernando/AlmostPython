@@ -38,6 +38,13 @@ def ConvertType(tipo,x=None):
     if tipo == "Integer": return 0 if x == None else int(x)
     if tipo == "Decimal": return 0.0 if x == None else float(x)
 
+def yaExiste(vars, word):
+    for tipo in VarVals:
+        keys = list(vars[tipo].keys())
+        if word in keys:
+            return True
+    return False
+
 def Declare(vars,line):
     if vars == dict():
         InitVars(vars)
@@ -57,21 +64,55 @@ def Declare(vars,line):
                 val = ConvertType(actual,line[index+2])
                 if actual == "String":
                     if val[0] != '"':
+                        print('ERROR - String debe declararse entre ""')
+                        return
+                    val = val[1:len(val)-1]
+            if yaExiste(vars, word): 
+                print("ERROR - Ya existe una variable con ese nombre")
+
+            vars[actual][word] = val
+        else:
+            print("ERROR - No se asigno un Tipo de variable a "+word)
+    # ShowVars(vars)
+    return True
+
+def Assign(vars,line):
+    line = SepararComasEspacios(line)
+    print(line)
+    for index in range(len(line)):
+        
+        word = line[index]
+        
+        # ASIGNACION
+        if word == '=': continue
+        if index > 1 and line[index-1] == '=': continue
+        """
+        if word in VarVals:
+            actual = word      
+        elif actual != "":
+            val = ConvertType(actual)
+            if index < len(line)-2 and line[index+1] == '=':
+                val = ConvertType(actual,line[index+2])
+                if actual == "String":
+                    if val[0] != '"':
                         print("ERORRRRRR")
                         return
                     val = val[1:len(val)-1]
 
             vars[actual][word] = val
         else:
-            print("ERORRRRRR")
-    # ShowVars(vars)
+            print("ERORRRRRR")"""
+    ShowVars(vars)
     return True
 
-def Assign(vars,line):
-    pass
-
-def Delete(vars):
-    pass
+def Delete(vars, line):
+    line = SepararComasEspacios(line)
+    for word in line:
+        for tipo in VarVals:
+            keys = list(vars[tipo].keys())
+            if word in keys:
+                del vars[tipo][word]
+    return
 
 def Read(vars):
     pass

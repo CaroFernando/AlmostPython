@@ -1,0 +1,3 @@
+Declare Integer x, String s = "0"
+Delete x
+ShowVars
