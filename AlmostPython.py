@@ -1,7 +1,7 @@
 # LIBRARIES
 
 import sys
-from Functions import Declare
+from Functions import Declare,SepararComasEspacios
 from ControlStructures import Execute_block
 
 # VARIABLES
@@ -29,24 +29,17 @@ def For():
 
 if __name__ == "__main__":
 
-    file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 AlmostPython.py nombre.txt#
+    file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 AlmostPython.py nombre.txt
 
     file = open(file_name, "r")
     for x in file:
-        # Quitar el salto de linea al final
-        x = x[:len(x)-1]
-        # Separar los comando por espacios 
-        comandos = x.split(" ");
+        comandos = x.split(" ")
         if comandos == [''] or len(comandos) == 0:
             continue
         # Leo la accion a ajecutar, y la quito de mis comandos
-        accion = comandos[0]
-        comandos = comandos[1:]
-        
         #print(comandos)
-
         if accion == "Declare":
-            Declare(vars,comandos)
+            Declare(vars,comandos[1:])
 
     lines = [i for i in file]
     Execute_block(lines)

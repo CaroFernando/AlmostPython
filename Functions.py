@@ -5,9 +5,13 @@
 def SepararComasEspacios(words):
     s = list()
     for word in words:
+        word.replace("="," = ")
+        word.replace(","," , ")
+        print(word)
         cosas = word.split(",")
         for cosa in cosas:
-            if cosa != '': s.append(cosa)
+            if cosa != '':
+                s.append(cosa)
     return s
 
 
@@ -34,6 +38,7 @@ def Declare(vars,line):
     if vars == dict():
         InitVars(vars)
     actual = ""
+    print(line)
     line = SepararComasEspacios(line)
     for index in range(len(line)):
         word = line[index]
@@ -42,13 +47,13 @@ def Declare(vars,line):
         if word == '=': continue
         if index > 1 and line[index-1] == '=': continue
 
-        if actual != "":
+        if word in VarVals:
+            actual = word      
+        elif actual != "":
             val = ConvertType(actual)
             if index < len(line)-2 and line[index-1] == '=':
                 val = ConvertType(actual,line[index+2]) 
             vars[actual].append([word,val])
-        elif word in VarVals:
-            actual = word      
         else:
             print("ERORRRRRR")
     ShowVars(vars)
