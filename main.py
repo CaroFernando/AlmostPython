@@ -14,7 +14,17 @@ accion = ''
 # Declaracion y Asignacion
 
 def Declare(line):
-    pass
+    actual = ""
+    for word in line:
+        if actual != "":
+            pass
+        elif word == "String":  # Declarar Strings
+            
+        elif word == "Integer": # Declarar Int
+
+        else:
+            print("ERORRRRRR")
+    return True
 
 def Assign(line):
     pass
@@ -30,7 +40,7 @@ def Print(line):
     print(pts[1])
 
 def Return():
-    
+    pass    
 
 # Estructuras de Control
 
@@ -64,8 +74,14 @@ if __name__ == "__main__":
         accion = comandos[0]
         comandos = comandos[1:]
         
-        for comando in comandos:
+        print(comandos)
+        """for comando in comandos:
             print(comando, end = ' ')
-        print()
+        print()"""
+
+        if accion == "Declare":
+            Declare(comandos);
 
 
+    file.close()
+        
