@@ -10,13 +10,13 @@
 | Return | "return"|
 | ShowVars| "%who" |
 
-| Estructuras de control |
-| --- |
-| For |
-| While |
-| If |
-| Else |
-| Elseif |
-| Break |
-| Do While |
+| Estructuras de control | Tipo |
+| --- | --- |
+| For | "for" |
+| While | "while" |
+| If | "if" |
+| Else | "else" |
+| Elseif | "elif" |
+| Break | "break" |
+| Do While | "do while" |
 
