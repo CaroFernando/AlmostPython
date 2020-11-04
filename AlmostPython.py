@@ -1,7 +1,7 @@
 # LIBRARIES
 
 import sys
-import Functions 
+from Functions import Declare
 from ControlStructures import Execute_block
 
 # VARIABLES
@@ -32,7 +32,6 @@ if __name__ == "__main__":
     file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 AlmostPython.py nombre.txt#
 
     file = open(file_name, "r")
-# <<<<<<< HEAD
     for x in file:
         # Quitar el salto de linea al final
         x = x[:len(x)-1]
@@ -47,7 +46,7 @@ if __name__ == "__main__":
         #print(comandos)
 
         if accion == "Declare":
-            Functions.Declare(vars,comandos)
+            Declare(vars,comandos)
 
     lines = [i for i in file]
     Execute_block(lines)

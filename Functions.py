@@ -14,23 +14,44 @@ def SepararComasEspacios(words):
 
 # Declaracion y Asignacion
 
+VarVals = ["String","Integer","Decimal"]
+
+def InitVars(vars):
+    for val in VarVals:
+        vars[val] = list()
+    return
+
+def ShowVars(vars):
+    print(vars)
+    return
+
+def ConvertType(tipo,x=None):
+    if tipo == "String": return "" if x == None else str(x)
+    if tipo == "Integer": return 0 if x == None else int(x)
+    if tipo == "Decimal": return 0.0 if x == None else float(x)
+
 def Declare(vars,line):
+    if vars == dict():
+        InitVars(vars)
     actual = ""
     line = SepararComasEspacios(line)
-    for word in line:
+    for index in range(len(line)):
+        word = line[index]
+        print(actual,word)
+        # ASIGNACION
+        if word == '=': continue
+        if index > 1 and line[index-1] == '=': continue
+
         if actual != "":
-            vars[actual].append([word,None])
-        elif word == "String":  # Declarar Strings
-            actual = word      
-        elif word == "Integer": # Declarar Int
-            actual = word      
-        elif word == "String":  # Declarar Strings
-            actual = word      
-        elif word == "Integer": # Declarar Int
+            val = ConvertType(actual)
+            if index < len(line)-2 and line[index-1] == '=':
+                val = ConvertType(actual,line[index+2]) 
+            vars[actual].append([word,val])
+        elif word in VarVals:
             actual = word      
         else:
             print("ERORRRRRR")
-    """
+    ShowVars(vars)
     return True
 
 def Assign(vars,line):
