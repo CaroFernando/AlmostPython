@@ -1,3 +1,4 @@
 Declare Integer x, Decimal f = 0.1,z=1, String t
+Declare Bool b=True,n=False
 Declare String s="adasdf"
 ShowVars

@@ -29,6 +29,10 @@ def For():
 
 if __name__ == "__main__":
 
+    if len(sys.argv) < 2: 
+        print("Ingrese el nombre de el archivo a interpretar")
+        sys.exit()
+
     file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 AlmostPython.py nombre.txt
 
     file = open(file_name, "r")

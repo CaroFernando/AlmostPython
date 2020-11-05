@@ -63,6 +63,8 @@ def Declare(vars,line):
         if word == '=': continue
         if index > 1 and line[index-1] == '=': continue
 
+        print(word)
+
         if word in VarVals:
             actual = word      
         elif actual != "":
