@@ -26,7 +26,7 @@ def SepararComasEspacios(words):
 
 VarVals = ["String","Integer","Decimal","Bool"]
 
-def InitVars(vars):
+def InitVars(vars = dict()):
     for val in VarVals:
         vars[val] = dict()
     return

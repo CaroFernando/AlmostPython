@@ -4,23 +4,25 @@
 ## Para que quede chido lo va a devolver en una lista
 
 def esLetra(c):
-    s = str(c)
+    c = str(c)
     if c >= "A" and c <= "Z": return True
     if c >= "a" and c <= "z": return True
     return False
 
 def esNumero(c):
-    s = str(c)
+    c = str(c)
     if c >= "0" and c <= "9": return True
     return False
 
-def esCaracterValido(c):
+def esCaracterValidoParaNombre_Variable(c):
+    c = str(c)
     if c == "_": return True
     if c == ".": return True
     if c == "\"": return True
     return False
 
 def esCaracterAuxiliar(c):
+    c = str(c)
     if c == ",": return True
     if c == ";": return True
     if c == ":": return True
@@ -38,15 +40,16 @@ def AnalizadorLexico(command):
     l = list()
     s = ""
     for c in command:
-        if esLetra(c) or esNumero(c) or esCaracterValido(c):
+        if esLetra(c) or esNumero(c) or esCaracterValidoParaNombre_Variable(c):
             s+=c
         elif esCaracterAuxiliar(c):
             if s != "": l.append(s)
             l.append(c)
             s = ""
-        else:
+        else: # Espacio
             if s != "": l.append(s)
             s = ""
+    # Añadir la ultima linea
     if s != "": l.append(s)
     return l
 

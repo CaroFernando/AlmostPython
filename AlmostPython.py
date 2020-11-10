@@ -1,15 +1,16 @@
 # LIBRARIES
 
 import sys
-from Functions import Declare,Delete,Assign,SepararComasEspacios,ShowVars
+from Functions import InitVars,Declare,Delete,Assign,SepararComasEspacios,ShowVars
 from ControlStructures import Execute_block
 from AnalizadorLexico import AnalizadorLexico
 
 # VARIABLES
 
-vars = dict() # diccionario de variables {"nombre de variable": "valor de varialbe"}
+vars = InitVars() # diccionario de variables {"nombre de variable": "valor de varialbe"}
 i = 0
 accion = ''
+
 
 # Declaracion y Asignacion
 """
@@ -30,14 +31,21 @@ def For():
 
 if __name__ == "__main__":
 
+    ## Leer argumentos dados por consola
+    ## Deben darse al menos 2 argumentos
     if len(sys.argv) < 2: 
         print("Ingrese el nombre de el archivo a interpretar")
         sys.exit()
 
+    ## Nombre del archivo a interpretar
     file_name = sys.argv[1] # nombre del archivo que se da desde terminal "python3 AlmostPython.py nombre.txt
 
+    ## Abrir el archivo y leerlo 
     file = open(file_name, "r")
     for x in file:
+
+        print(x, AnalizadorLexico(x))        
+
         # Quitar salto de linea del final 
         if len(x) < 2: continue
         if(x[len(x)-1]=='\n'): x = x[:len(x)-1]
@@ -54,7 +62,7 @@ if __name__ == "__main__":
             comando+=c+' '
 
         
-        #print(x, AnalizadorLexico(x))        
+        print(comando) 
 
         # Leo la accion a ajecutar, y la quito de mis comandos
         if accion == "Declare":
