@@ -3,6 +3,7 @@
 import sys
 from Functions import Declare,Delete,Assign,SepararComasEspacios,ShowVars
 from ControlStructures import Execute_block
+from AnalizadorLexico import AnalizadorLexico
 
 # VARIABLES
 
@@ -51,6 +52,10 @@ if __name__ == "__main__":
         comando = ""
         for c in comandos:
             comando+=c+' '
+
+        
+        #print(x, AnalizadorLexico(x))        
+
         # Leo la accion a ajecutar, y la quito de mis comandos
         if accion == "Declare":
             # print(comando)

@@ -2,6 +2,8 @@
 
 # vars = dict() # diccionario de variables {"nombre de variable": "valor de varialbe"}
 
+from AnalizadorLexico import AnalizadorLexico
+
 def SepararComasEspacios(words):
     s = list()
     aux = ''
@@ -56,7 +58,10 @@ def Declare(vars,line):
     if vars == dict():
         InitVars(vars)
     actual = ""
+    line2 = AnalizadorLexico(line)
     line = SepararComasEspacios(line)
+    print(line)
+    print(line2)
     for index in range(len(line)):
         word = line[index]
         # ASIGNACION
