@@ -1,30 +1,15 @@
-# VARIABLES
 
-# vars = dict() # diccionario de variables {"nombre de variable": "valor de varialbe"}
+# IMPORTS
 
 from AnalizadorLexico import AnalizadorLexico
+from ArithmeticOperations import SolveOp
 
-def SepararComasEspacios(words):
-    s = list()
-    aux = ''
-    for c in words:
-        if c == '=' or c == ',' or c == ':':
-            aux+=' '+c+' '
-        else:
-            aux+=c
-    words = aux.split(' ')
-    if '' in words: words.remove('')
-    if ',' in words: words.remove(',')
-    for word in words:
-        cosas = word.split(",")
-        for cosa in cosas:
-            if cosa != '' and cosa != ',' and cosa != ' ':
-                s.append(cosa)
-    return s
 
-# Declaracion y Asignacion
-
+# VARIABLES
 VarVals = ["String","Integer","Decimal","Bool"]
+
+
+#FUNCIONES
 
 def InitVars(vars = dict()):
     for val in VarVals:
@@ -45,7 +30,19 @@ def ConvertType(tipo,x=None):
     if tipo == "String": return "" if x == None else str(x)
     if tipo == "Integer": return 0 if x == None else int(x)
     if tipo == "Decimal": return 0.0 if x == None else float(x)
-    if tipo == "Bool": return False if x == None else True if ( x == "True" or x == "true") else False
+    if tipo == "Bool": 
+        if x == None:
+            return False 
+        if type(x) == int:
+            return False if x == 0 else True
+        if type(x) == float:
+            return False if x == 0.0 else True 
+        if ( x == "True" or x == "true"):
+            return True
+        elif ( x == "False" or x == "false"):
+            return False
+        else:
+            return None
 
 def yaExiste(vars, word):
     for tipo in VarVals:
@@ -54,31 +51,50 @@ def yaExiste(vars, word):
             return True
     return False
 
+def searchVar(vars):
+    for tipo in VarVals:
+        keys = list(vars[tipo].keys())
+        if word in keys:
+            return True
+    return None
+
+
 def Declare(vars,line):
-    if vars == dict():
-        InitVars(vars)
+    if vars == dict(): InitVars(vars)
     actual = ""
-    line2 = AnalizadorLexico(line)
-    line = SepararComasEspacios(line)
-    print(line)
-    print(line2)
+    line = AnalizadorLexico(line)
+    line.pop(0)
+    # print(line)
     for index in range(len(line)):
         word = line[index]
+
         # ASIGNACION
-        if word == '=': continue
+        if word == '=' or word == ',': continue
         if index > 1 and line[index-1] == '=': continue
+
 
         if word in VarVals:
             actual = word      
         elif actual != "":
+    # Valor por default
             val = ConvertType(actual)
+            # print(word," - ",val)
+    # Si se le asigno una expresion ...
             if index < len(line)-2 and line[index+1] == '=':
-                val = ConvertType(actual,line[index+2])
-                if actual == "String":
-                    if val[0] != '"':
-                        print('ERROR - String debe declararse entre ""')
-                        return
-                    val = val[1:len(val)-1]
+            # Paso mi valor, y el =
+                index+=2
+            # Calculo la expresion
+                expresion = ""
+                while index < len(line) and line[index] != ",":
+                    expresion+=str(line[index])
+                    index+=1
+                print("Tipo de Expresion - ", actual)
+                print("Expresion - ", expresion)
+                expresion = SolveOp(expresion, actual)
+                print("Evaluada - ", expresion)
+                val = ConvertType(actual,expresion)
+                print("Evaluada al Valor - ", val)
+                
             if yaExiste(vars, word): 
                 print("ERROR - Ya existe una variable con ese nombre")
 
@@ -89,31 +105,6 @@ def Declare(vars,line):
     return True
 
 def Assign(vars,line):
-    line = SepararComasEspacios(line)
-    print(line)
-    for index in range(len(line)):
-        
-        word = line[index]
-        
-        # ASIGNACION
-        if word == '=': continue
-        if index > 1 and line[index-1] == '=': continue
-        """
-        if word in VarVals:
-            actual = word      
-        elif actual != "":
-            val = ConvertType(actual)
-            if index < len(line)-2 and line[index+1] == '=':
-                val = ConvertType(actual,line[index+2])
-                if actual == "String":
-                    if val[0] != '"':
-                        print("ERORRRRRR")
-                        return
-                    val = val[1:len(val)-1]
-
-            vars[actual][word] = val
-        else:
-            print("ERORRRRRR")"""
     ShowVars(vars)
     return True
 

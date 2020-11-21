@@ -1,0 +1,22 @@
+Declare Integer n
+
+Declare Integer n = (1-2)*(2/1)
+
+Assing n = 10
+For (Declare Integer i = 0;i<10;Assign i = i + 1):
+	Print i
+	Declare Integer temp
+	Assign temp = i
+
+Declare String s = "Hola"
+Assign s = s+"Mundo"
+
+Declare Integer x, Decimal f = 0.1,z=1, String t
+Declare Bool b=True,n=False
+Declare String s="adasdf"
+ShowVars
+
+
+Declare Integer x, String s = "0"
+Delete x
+ShowVars

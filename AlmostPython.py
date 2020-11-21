@@ -1,16 +1,16 @@
 # LIBRARIES
 
 import sys
-from Functions import InitVars,Declare,Delete,Assign,SepararComasEspacios,ShowVars
+from Functions import InitVars,Declare,Delete,Assign,ShowVars
 from ControlStructures import Execute_block
 from AnalizadorLexico import AnalizadorLexico
 
 # VARIABLES
 
-vars = InitVars() # diccionario de variables {"nombre de variable": "valor de varialbe"}
+vars = dict()
+InitVars(vars)   # diccionario de variables {"nombre de variable": "valor de varialbe"}
 i = 0
 accion = ''
-
 
 # Declaracion y Asignacion
 """
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     ## Leer argumentos dados por consola
     ## Deben darse al menos 2 argumentos
     if len(sys.argv) < 2: 
-        print("Ingrese el nombre de el archivo a interpretar")
+        print("Ingrese el nombre de el archivo a interpretar.")
         sys.exit()
 
     ## Nombre del archivo a interpretar
@@ -42,40 +42,46 @@ if __name__ == "__main__":
 
     ## Abrir el archivo y leerlo 
     file = open(file_name, "r")
-    for x in file:
-
-        print(x, AnalizadorLexico(x))        
+    for line in file:
 
         # Quitar salto de linea del final 
-        if len(x) < 2: continue
-        if(x[len(x)-1]=='\n'): x = x[:len(x)-1]
+        if len(line) < 2: continue
+        if(line[len(line)-1]=='\n'): line = line[:len(line)-1]
 
-        comandos = x.split(" ")
+        # Quitar lineas en blanco
+        comandos = line.split(" ")
         if comandos == [''] or len(comandos) == 0:
             continue
-        
-        accion = comandos[0]
-        comandos = comandos[1:]
 
+        accion = comandos[0]
+
+        # print(line,accion, AnalizadorLexico(line))        
+
+        if accion == "Declare":
+            # print(comando)
+            Declare(vars,line)
+        elif accion == "Assign":
+            Assign(vars,line)
+        elif accion == "Delete":
+            Delete(vars,line)
+        elif accion == "ShowVars":
+            ShowVars(vars)
+        else:
+            print("Error: Invalid sintaxis")
+            file.close()
+            sys.exit()
+    
+    file.close()
+
+    """
         comando = ""
         for c in comandos:
             comando+=c+' '
-
-        
         print(comando) 
-
         # Leo la accion a ajecutar, y la quito de mis comandos
-        if accion == "Declare":
-            # print(comando)
-            Declare(vars,comando)
-        elif accion == "Assign":
-            Assign(vars,comando)
-        elif accion == "Delete":
-            Delete(vars,comando)
-        elif accion == "ShowVars":
-            ShowVars(vars)
 
 
     lines = [i for i in file]
     Execute_block(lines)
-    file.close()
+    """
+

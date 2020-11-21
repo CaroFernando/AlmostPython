@@ -23,15 +23,27 @@ def esCaracterValidoParaNombre_Variable(c):
 
 def esCaracterAuxiliar(c):
     c = str(c)
+
+    # Tabs
+    if c == "\t": return True
+
     if c == ",": return True
     if c == ";": return True
     if c == ":": return True
     if c == "<": return True
     if c == ">": return True
     if c == "=": return True
+    # Logicos
     if c == "!": return True
     if c == "&": return True
     if c == "|": return True
+    # Aritmeticos
+    if c == "+": return True
+    if c == "-": return True
+    if c == "*": return True
+    if c == "/": return True
+    if c == "^": return True
+    # Parentesis
     if c == "(": return True
     if c == ")": return True
     return False
@@ -51,6 +63,10 @@ def AnalizadorLexico(command):
             s = ""
     # Añadir la ultima linea
     if s != "": l.append(s)
+
+    ## Checar casos especiales
+
+
     return l
 
 
