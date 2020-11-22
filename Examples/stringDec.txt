@@ -1,3 +1,0 @@
-Declare String s = "Hola MUndo"
-Declare String s2 = s + " Mundial"
-ShowVars

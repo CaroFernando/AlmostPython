@@ -186,12 +186,51 @@ def Delete(vars, line):
             return None
     return
 
-def Read(vars):
-    pass
+def Read(vars, line):
+    line = AnalizadorLexico(line)
+    line.pop(0)
+    for word in line:
+        jala = False
+        for tipo in VarVals:
+            keys = list(vars[tipo].keys())
+            if word in keys:
+                expresion = input()
+                expresion = SolveOp(expresion, tipo)
+                # print("Lectura - ",expresion)
+                jala = True
+                vars[tipo][word] = ConvertType(tipo, expresion)
+        if not jala:
+            print("ERROR - Variable "+word+" no fue declarada previamente.")
+            return None
+    return
 
 def Print(vars,line):
-    pts = line.split(" ")
-    print(pts[1])
+    line = AnalizadorLexico(line)
+    line.pop(0)
+    # print(line)
+    s = ""
+    index = 0
+    while index < len(line):
+    #Si no se separa por comas ','
+        if index <len(line)-1 and line[index+1] != ',':
+            print("ERROR - Al imprimir debe de separarse por comas")
+        word = line[index]
+        index+=2
+        existe, tipo = yaExiste(vars, word)
+        # print("Word - ",word)
+        # print("Existe? - ",existe)
+        # print("Tipo - ",tipo)            
+        if existe:
+            s+=str(vars[tipo][word])
+        else:
+            if len(word) < 2 or word[0]!='"' or word[-1] !='"':
+                print("ERROR - String debe estar entre \" \".")
+            else:
+                s+=word[1:len(word)-1]
+    print(s)
+            
+
+
 
 def Return(vars):
     pass    

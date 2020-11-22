@@ -54,14 +54,9 @@ def AnalizadorLexico(command):
     dentroDeString = False
     for c in command:
         if c == '"': # Caso especial espacios Strings
-            # print("Caso especial ",s)
-            dentroDeString = True
+            dentroDeString = not dentroDeString
+        if dentroDeString:
             s+=c
-        elif dentroDeString:
-            s+=c 
-            if c == '"':  # Salgo caso especial
-                print("Caso especial ",s)
-                dentroDeString = False
         elif esLetra(c) or esNumero(c) or esCaracterValidoParaNombre_Variable(c):
             s+=c
         elif esCaracterAuxiliar(c):
