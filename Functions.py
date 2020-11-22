@@ -48,24 +48,53 @@ def yaExiste(vars, word):
     for tipo in VarVals:
         keys = list(vars[tipo].keys())
         if word in keys:
-            return True
-    return False
+            return (True,tipo)
+    return (False,None)
 
 def searchVar(vars):
     for tipo in VarVals:
         keys = list(vars[tipo].keys())
         if word in keys:
             return True
-    return None
+    return False
+
+def buscarValoresEnLaExpresion(vars, index, line, expresion):
+    # Expresion
+    index+=1
+    while index < len(line) and line[index] != ",":
+        extra = str(line[index])
+    # Checar si lo que voy a añadir es una variabe
+    # Si lo es, agregar no la variable sino su valor
+    # Si es string, añadir "" para que funcione
+        existe, tipo = yaExiste(vars, extra)
+
+        if existe:
+            # print("Extra - ",extra)    
+            # print("Valor - ", vars[tipo][extra])    
+            if tipo == "String":
+                expresion+='"'
+                expresion+=vars[tipo][extra]
+                expresion+='"'
+            else:
+                expresion+=str(vars[tipo][extra])
+        else:
+            expresion += extra
+        index+=1
+    # print("Tipo de Expresion - ", actual)
+    # print("Variable - ", variable)
+    # print("Expresion - ", expresion)
+    return expresion, index
 
 
 def Declare(vars,line):
     if vars == dict(): InitVars(vars)
     actual = ""
     line = AnalizadorLexico(line)
-    line.pop(0)
     # print(line)
-    for index in range(len(line)):
+    line.pop(0)
+    index = -1
+    while index < len(line)-1:
+        index+=1
         word = line[index]
 
         # ASIGNACION
@@ -78,25 +107,25 @@ def Declare(vars,line):
         elif actual != "":
     # Valor por default
             val = ConvertType(actual)
-            # print(word," - ",val)
+            #print("Index - ",index)
+            #print("Nombre Variable - ",word)
+            #print("Valor Variable - ", str(val))
     # Si se le asigno una expresion ...
             if index < len(line)-2 and line[index+1] == '=':
             # Paso mi valor, y el =
                 index+=2
             # Calculo la expresion
                 expresion = ""
-                while index < len(line) and line[index] != ",":
-                    expresion+=str(line[index])
-                    index+=1
-                print("Tipo de Expresion - ", actual)
-                print("Expresion - ", expresion)
+                expresion, index = buscarValoresEnLaExpresion(vars, index-1,line,expresion)
+                #print("Tipo de Expresion - ", actual)
+                # print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
-                print("Evaluada - ", expresion)
+                # print("Evaluada - ", expresion)
                 val = ConvertType(actual,expresion)
-                print("Evaluada al Valor - ", val)
-                
-            if yaExiste(vars, word): 
+                # print("Evaluada al Valor - ", val)
+            if yaExiste(vars, word)[0] == True: 
                 print("ERROR - Ya existe una variable con ese nombre")
+                return None
 
             vars[actual][word] = val
         else:
@@ -105,16 +134,56 @@ def Declare(vars,line):
     return True
 
 def Assign(vars,line):
-    ShowVars(vars)
+    if vars == dict(): InitVars(vars)
+    line = AnalizadorLexico(line)
+    line.pop(0)
+    # print(line)
+    variable, expresion = "",""
+
+    for index in range(len(line)):
+        word = line[index]
+        
+        if index > 1 and line[index-1] == '=': continue
+
+        if word == "=":
+    # Nombre de la variable
+            variable = line[index - 1]
+    # Expresion
+            expresion, index = buscarValoresEnLaExpresion(vars, index, line, expresion)
+
+        # Buscar la variable
+        # Guardo si existe, y qeu tipo de variable es
+            existe, tipo = yaExiste(vars, variable)
+            # print("Existe? - ",existe)
+            # print("Tipo - ",tipo)
+            if not existe:
+                print("ERROR - Variable "+word+" no fue declarada previamente.")
+                return
+            expresion = SolveOp(expresion, tipo)
+            # print("Evaluada - ", expresion)
+            val = ConvertType(tipo, expresion)
+            # print("Evaluada al Valor - ", val)
+            vars[tipo][variable] = val
+    
+        variable, expresion = "",""
+
+    # ShowVars(vars)
     return True
 
 def Delete(vars, line):
-    line = SepararComasEspacios(line)
+    line = AnalizadorLexico(line)
+    line.pop(0)
+    # print(line)
     for word in line:
+        jala = False
         for tipo in VarVals:
             keys = list(vars[tipo].keys())
             if word in keys:
+                jala = True
                 del vars[tipo][word]
+        if not jala:
+            print("ERROR - Variable "+word+" no fue declarada previamente.")
+            return None
     return
 
 def Read(vars):

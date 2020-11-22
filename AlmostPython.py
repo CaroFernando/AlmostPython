@@ -58,7 +58,6 @@ if __name__ == "__main__":
         # print(line,accion, AnalizadorLexico(line))        
 
         if accion == "Declare":
-            # print(comando)
             Declare(vars,line)
         elif accion == "Assign":
             Assign(vars,line)

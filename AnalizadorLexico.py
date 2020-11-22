@@ -51,8 +51,18 @@ def esCaracterAuxiliar(c):
 def AnalizadorLexico(command):
     l = list()
     s = ""
+    dentroDeString = False
     for c in command:
-        if esLetra(c) or esNumero(c) or esCaracterValidoParaNombre_Variable(c):
+        if c == '"': # Caso especial espacios Strings
+            # print("Caso especial ",s)
+            dentroDeString = True
+            s+=c
+        elif dentroDeString:
+            s+=c 
+            if c == '"':  # Salgo caso especial
+                print("Caso especial ",s)
+                dentroDeString = False
+        elif esLetra(c) or esNumero(c) or esCaracterValidoParaNombre_Variable(c):
             s+=c
         elif esCaracterAuxiliar(c):
             if s != "": l.append(s)

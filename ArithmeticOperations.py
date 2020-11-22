@@ -22,17 +22,22 @@ def ConvertType(tipo,x=None):
 def getvar(s):
     if s == "True" or s == "true": return 1
     if s == "False" or s == "false": return 0
+
     return float(s)
 
 def SolveOp(op, tipoDeExpresion = "Integer"):
    
     if tipoDeExpresion == "String": 
-        if len(op) < 2 or op[0] != '"' or op[-1] != '"':
-            print("ERROR - String debe ser declarada entre \" \".")
-            return None
-    # Eliminar los ""
-        op = op[1:len(op)-1]
-        return str(op)
+        ops = op.split("+")
+        res = ""
+        for op in ops:
+            if len(op) < 2 or op[0] != '"' or op[-1] != '"':
+                print("ERROR - String debe ser declarada entre \" \".")
+                return None
+        # Eliminar los ""
+            op = op[1:len(op)-1]
+            res+=op
+        return str(res)
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
 # Integer bool o float
     else:

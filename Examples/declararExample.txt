@@ -1,4 +1,6 @@
 Declare Integer x, Decimal f = 0.1,z=1, String t
+Declare Integer expresion = 1+2+3+8/2
 Declare Bool b=True,n=False
-Declare String s="adasdf"
+Declare String s="Hola"
+Declare String s2=s+"    Mundo"
 ShowVars

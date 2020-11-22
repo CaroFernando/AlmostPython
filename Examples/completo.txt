@@ -1,0 +1,8 @@
+Declare Integer x = 1+2+3
+Declare String s = "Hola "+"Pedro"
+Assign x = 10/3
+ShowVars
+
+Delete x
+
+ShowVars

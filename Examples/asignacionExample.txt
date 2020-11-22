@@ -1,2 +1,3 @@
-Declare String s = "Hola"
-Assign s = s+"Mundo"
+Declare String s = "Hola", Integer x = 0.9
+Assign s = s+"Mundo", x = x + 1 + 3*4
+ShowVars
