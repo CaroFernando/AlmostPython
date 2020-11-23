@@ -1,7 +1,7 @@
 # LIBRARIES
 
 import sys
-from Functions import InitVars,Declare,Delete,Assign,ShowVars
+from Functions import InitVars,Declare,Delete,Assign,ShowVars,Print,Read
 from ControlStructures import Execute_block
 from AnalizadorLexico import AnalizadorLexico
 
@@ -58,7 +58,6 @@ if __name__ == "__main__":
         # print(line,accion, AnalizadorLexico(line))        
 
         if accion == "Declare":
-            # print(comando)
             Declare(vars,line)
         elif accion == "Assign":
             Assign(vars,line)
@@ -66,6 +65,10 @@ if __name__ == "__main__":
             Delete(vars,line)
         elif accion == "ShowVars":
             ShowVars(vars)
+        elif accion == "Read":
+            Read(vars,line)
+        elif accion == "Print":
+            Print(vars,line)
         else:
             print("Error: Invalid sintaxis")
             file.close()
