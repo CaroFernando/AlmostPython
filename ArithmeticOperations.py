@@ -34,7 +34,7 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
         op = op[1:len(op)-1]
         return str(op)
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
-# Integer bool o float
+    # Integer bool o float
     else:
         an = 0
         pts = []
@@ -87,6 +87,13 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
         # print(f"final result: {finalres}")
 
         return finalres
+
+def temp(s):
+    q = []
+    ops = []
+
+    for i in s:
+        if 
 
 # op = "10+20*2/4-10/5"
 # op = ['(', '1', '+', '2', ')', '*', '(', '2', '/', '1', ')']
