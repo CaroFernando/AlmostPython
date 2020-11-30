@@ -64,6 +64,28 @@ def esRelacional(c):
     if c == "=": return True
     if c == "!": return True
     return False
+    
+def weaRara(c):
+
+    if c == "AND": return True
+    if c == "NOT": return True
+    if c == "OR": return True
+
+    if c == "<": return True
+    if c == ">": return True
+    if c == "<=": return True
+    if c == ">=": return True
+    if c == "==": return True
+    if c == "!=": return True
+    return False
+
+
+def booleano(c):
+    if c == "True": return True
+    if c == "true": return True
+    if c == "False": return True
+    if c == "false": return True
+    return False
 
 
 def esMasMenos(c):
@@ -107,13 +129,23 @@ def signSimplify(command):
     index = 0
     while index < len(command):
         c = command[index]
-        if index < len(command) -1 and esRelacional(c) and command[index+1] == '=':
+        
+        if booleano(c):
+            new.append(str(c)+"=")
+            index+=1
+    # Juntar ==, <=, etc
+        elif index < len(command) -1 and esRelacional(c) and command[index+1] == '=':
             new.append(str(c)+"=")
             index+=2
+    # Juntar signos
         elif esAritmetico(c):
-            new.append(str(c))
-            index+=1
             signo = 1
+            if index == 0:
+                if c == '-':
+                    signo*=-1
+            else:
+                new.append(str(c))
+            index+=1
             while index < len(command):
                 c = command[index]
                 if intOrFloat(c) > 0:

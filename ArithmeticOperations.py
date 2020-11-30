@@ -1,4 +1,4 @@
-from AnalizadorLexico import AnalizadorLexico
+from AnalizadorLexico import AnalizadorLexico, weaRara
 
 # from Functions import ConvertType
 VarVals = ["String","Integer","Decimal","Bool"]
@@ -30,7 +30,21 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): return ""
    
-    if tipoDeExpresion == "String": 
+    if tipoDeExpresion == "Bool": 
+        print(AnalizadorLexico(op))
+        print(AnalizadorLexico(op, True))
+
+        op = AnalizadorLexico(op, True)
+        index = 0
+        while index < len(op):
+            exp = op[index]
+            # print(exp)
+            if weaRara(exp):
+                print(exp) 
+            index+=1
+         
+        pass
+    elif tipoDeExpresion == "String": 
         ops = op.split("+")
         res = ""
         for op in ops:
