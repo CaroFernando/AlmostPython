@@ -1,4 +1,4 @@
-from AnalizadorLexico import AnalizadorLexico, weaRara
+from AnalizadorLexico import AnalizadorLexico
 
 # from Functions import ConvertType
 VarVals = ["String","Integer","Decimal","Bool"]
@@ -30,23 +30,6 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): return ""
    
-    """
-    if tipoDeExpresion == "Bool": 
-        print(AnalizadorLexico(op))
-        print(AnalizadorLexico(op, True))
-
-        op = AnalizadorLexico(op, True)
-        index = 0
-        while index < len(op):
-            exp = op[index]
-            # print(exp)
-            if weaRara(exp):
-                print(exp) 
-            index+=1
-         
-        pass
-    """
-
     if tipoDeExpresion == "String": 
         ops = op.split("+")
         res = ""
@@ -60,48 +43,41 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         return str(res)
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
     # Integer bool o float
+    elif tipoDeExpresion == "Bool":
+        pass
     else:
-
-        print(AnalizadorLexico(op))
         print(AnalizadorLexico(op, True))
-
-
+        al = AnalizadorLexico(op, True)
         an = 0
         pts = []
-        sig = [1 if op[0] != '-' else -1]
-        for ind, p in enumerate(op):
+        sig = [1]
+        
+        for ind, p in enumerate(al):
             if(p == '+' or p == '-'):
                 sig.append(1 if p == '+' else -1)
-                pts.append(op[an:ind])
+                pts.append([i for i in al[an:ind]])
                 an = ind + 1
 
-        pts.append(op[an:len(op)])
+        pts.append([i for i in al[an:]])
+
         subres = []
 
         for p in pts:
-            ns = []
-            ops = []
-            prev = 0
+            ac = getvar(p[0])
+            p.pop(0)
+            op = None
 
-            for ind, c in enumerate(p):
-                if(c == '*' or c == '/'):
-                    ops.append(c)
-                    ns.append(p[prev:ind])
-                    prev = ind+1
-                
-            ns.append(p[prev:len(p)])
-
-            res = getvar(ns[0])
-            ns.pop(0)
-
-            for ind, n in enumerate(ns):
-                if(ops[ind] == '*'):
-                    res = res * getvar(n)
-                elif(ops[ind] == '/'):
-                    res = res / getvar(n)
-
-            subres.append(res)
-
+            for el in p:
+                if(el == '*' or el == '/'):
+                    op = el
+                else:
+                    if(op == '*'):
+                        ac *= getvar(el)
+                    elif(op == '/'):
+                        ac /= getvar(el)
+                        
+            subres.append(ac)
+            
         finalres = 0
 
         for ind, res in enumerate(subres):
@@ -132,13 +108,13 @@ def SolveOp(s, exty = "Integer"):
     res = ""
     end = 0
     for p in pairs:
-        temp = SolveOp(s[p[0]+1:p[1]])
+        temp = SolveOp(s[p[0]+1:p[1]], exty)
         res = res + s[end:p[0]] + str(temp)
         end = p[1]+1
     if(len(pairs) == 0): res = s
     else:
         res = res + s[end:len(s)]
-    
+    print(res)
     return(SolveSimpleOp(res, exty))
     
 
@@ -146,8 +122,11 @@ def SolveOp(s, exty = "Integer"):
 # op = ['(', '1', '+', '2', ')', '*', '(', '2', '/', '1', ')']
 # print(f"Reurn value: {SolveOp(op)}")
 
-#pr = "(1+2*(3-1)*(4*5)/2)+1"
+# ((3+(5*3))<9*5 and True) or False
+#pr = "(1+2*(3-1)*(4*-5)/2)+1"
 #pr = "(1+2)/(1+-10)"
+#pr = "1+6*4/3-7*9"
+#pr = "True+False"
 #pr = "10*-2+3"
-# pr = "1+-10"
-#print(SolveOp(pr))
+pr = "-10"
+print(SolveOp(pr))
