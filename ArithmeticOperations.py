@@ -123,10 +123,10 @@ def SolveOp(s, exty = "Integer"):
 # print(f"Reurn value: {SolveOp(op)}")
 
 # ((3+(5*3))<9*5 and True) or False
-#pr = "(1+2*(3-1)*(4*-5)/2)+1"
+pr = "(1+2*(3-1)*(4*-5)/2)+1"
 #pr = "(1+2)/(1+-10)"
 #pr = "1+6*4/3-7*9"
 #pr = "True+False"
 #pr = "10*-2+3"
-pr = "-10"
+#pr = "-10"
 print(SolveOp(pr))
