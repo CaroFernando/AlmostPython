@@ -87,6 +87,11 @@ def booleano(c):
     if c == "false": return True
     return False
 
+def booleanoCheck(c):
+    if c == "True": return 1
+    if c == "true": return 1
+    if c == "False": return 0
+    if c == "false": return 0
 
 def esMasMenos(c):
     # Aritmeticos
@@ -131,7 +136,7 @@ def signSimplify(command):
         c = command[index]
         
         if booleano(c):
-            new.append(str(c)+"=")
+            new.append(str(booleanoCheck(c)))
             index+=1
     # Juntar ==, <=, etc
         elif index < len(command) -1 and esRelacional(c) and command[index+1] == '=':
@@ -146,6 +151,8 @@ def signSimplify(command):
             else:
                 new.append(str(c))
             index+=1
+            if booleano(command[index]):
+                continue
             while index < len(command):
                 c = command[index]
                 if intOrFloat(c) > 0:
@@ -167,6 +174,7 @@ def signSimplify(command):
         else:
             new.append(str(c))
             index+=1
+            
 
     return new
 

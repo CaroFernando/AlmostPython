@@ -29,8 +29,22 @@ def getvar(s):
 def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): return ""
-   
-    if tipoDeExpresion == "String": 
+
+    if tipoDeExpresion == "Bool": 
+        print(AnalizadorLexico(op))
+        print(AnalizadorLexico(op, True))
+
+        op = AnalizadorLexico(op, True)
+        index = 0
+        while index < len(op):
+            exp = op[index]
+            # print(exp)
+            if weaRara(exp):
+                print(exp) 
+            index+=1
+         
+        pass
+    elif tipoDeExpresion == "String": 
         ops = op.split("+")
         res = ""
         for op in ops:
@@ -126,7 +140,7 @@ def SolveOp(s, exty = "Integer"):
 pr = "(1+2*(3-1)*(4*-5)/2)+1"
 #pr = "(1+2)/(1+-10)"
 #pr = "1+6*4/3-7*9"
-#pr = "True+False"
+pr = "True+False"
 #pr = "10*-2+3"
 #pr = "-10"
 print(SolveOp(pr))
