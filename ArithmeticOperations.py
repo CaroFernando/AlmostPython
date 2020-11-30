@@ -25,7 +25,8 @@ def getvar(s):
     if s == "False" or s == "false": return 0
     return float(s)
 
-def SolveOp(op, tipoDeExpresion = "Integer"):
+def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
+    if(len(op) == 0): return ""
    
     if tipoDeExpresion == "String": 
         ops = op.split("+")
@@ -39,7 +40,7 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
             res+=op
         return str(res)
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
-# Integer bool o float
+    # Integer bool o float
     else:
         an = 0
         pts = []
@@ -51,8 +52,6 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
                 an = ind + 1
 
         pts.append(op[an:len(op)])
-        # print(pts, sig)
-
         subres = []
 
         for p in pts:
@@ -68,8 +67,6 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
                 
             ns.append(p[prev:len(p)])
 
-            # print(ns, ops)
-
             res = getvar(ns[0])
             ns.pop(0)
 
@@ -80,19 +77,49 @@ def SolveOp(op, tipoDeExpresion = "Integer"):
                     res = res / getvar(n)
 
             subres.append(res)
-            
-            # print(f"result: {res}")
-            
-        # print(subres)
 
         finalres = 0
 
         for ind, res in enumerate(subres):
             finalres = finalres + res*sig[ind]
-        # print(f"final result: {finalres}")
 
         return finalres
+
+def SolveOp(s, exty = "Integer"):
+    st = []
+    pairs = []
+    for ind, c in enumerate(s):
+        if(c == '('):
+            st.append(ind)
+        if(c == ')'):
+            if(len(st) > 0):
+                if(len(st) == 1): pairs.append((st[len(st)-1], ind))
+                st.pop(len(st)-1)
+            else:
+                print("SYNTAX ERROR in operation")
+                exit()
+                
+    if(len(st) > 0):
+        print("SYNTAX ERROR in operation")
+        exit()
+        
+    pres = []
+    res = ""
+    end = 0
+    for p in pairs:
+        temp = SolveOp(s[p[0]+1:p[1]])
+        res = res + s[end:p[0]] + str(temp)
+        end = p[1]+1
+    if(len(pairs) == 0): res = s
+    else:
+        res = res + s[end:len(s)]
+    
+    return(SolveSimpleOp(res, exty))
+    
 
 # op = "10+20*2/4-10/5"
 # op = ['(', '1', '+', '2', ')', '*', '(', '2', '/', '1', ')']
 # print(f"Reurn value: {SolveOp(op)}")
+
+pr = "(1+2*(3-1)*(4*5)/2)+1"
+print(SolveOp(pr))
