@@ -48,7 +48,24 @@ def esCaracterAuxiliar(c):
     if c == ")": return True
     return False
 
-def AnalizadorLexico(command):
+def esAritmetico(c):
+    # Aritmeticos
+    if c == "+": return True
+    if c == "-": return True
+    if c == "*": return True
+    if c == "/": return True
+    if c == "^": return True
+    return False
+
+
+def esMasMenos(c):
+    # Aritmeticos
+    if c == "+": return True
+    if c == "-": return True
+    return False
+
+
+def AnalizadorLexico(command, simplificarSignos = False):
     l = list()
     s = ""
     dentroDeString = False
@@ -71,8 +88,64 @@ def AnalizadorLexico(command):
 
     ## Checar casos especiales
 
-
+    if simplificarSignos == True:
+        l = signSimplify(l)
     return l
+
+
+def signSimplify(command):
+    # print("signsimplify - ",command)
+    new = []
+    index = 0
+    while index < len(command):
+        c = command[index]
+        if esAritmetico(c):
+            new.append(str(c))
+            index+=1
+            signo = 1
+            while index < len(command):
+                c = command[index]
+                if intOrFloat(c) > 0:
+                    if intOrFloat(c) == 2: # INT 
+                        new.append(str(signo*int(c)))
+                        index+=1
+                        break
+                    else: # FLOAT
+                        new.append(str(signo*float(c)))
+                        index+=1
+                        break
+                elif esMasMenos(c):
+                    if c == '-':
+                        signo*=-1
+                    index+=1
+                else:
+                    print("ERROR - Expresion con signos mal puestos") 
+                    exit()
+        else:
+            new.append(str(c))
+            index+=1
+
+    return new
+
+
+def intOrFloat(n):
+    try:
+        float(n)
+    except ValueError:
+        try:
+            int(n)
+        except ValueError:
+            return 0 # Ninguno
+        else: 
+            return 2 # Int
+    else: 
+        return 1 # Float
+
+
+
+
+
+
 
 
 

@@ -84,7 +84,7 @@ def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
         index+=1
     # print("Tipo de Expresion - ", actual)
     # print("Variable - ", variable)
-    print("Expresion - ", expresion)
+    # print("Expresion - ", expresion)
     return expresion, index
 
 
@@ -119,8 +119,8 @@ def Declare(vars,line):
             # Calculo la expresion
                 expresion = ""
                 expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
-                #print("Tipo de Expresion - ", actual)
-                # print("Expresion - ", expresion)
+                print("Tipo de Expresion - ", actual)
+                print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
                 # print("Evaluada - ", expresion)
                 val = ConvertType(actual,expresion)

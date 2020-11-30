@@ -1,3 +1,4 @@
+from AnalizadorLexico import AnalizadorLexico
 
 # from Functions import ConvertType
 VarVals = ["String","Integer","Decimal","Bool"]
@@ -26,6 +27,7 @@ def getvar(s):
     return float(s)
 
 def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
+    # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): return ""
    
     if tipoDeExpresion == "String": 
@@ -42,6 +44,11 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
     # Integer bool o float
     else:
+
+        print(AnalizadorLexico(op))
+        print(AnalizadorLexico(op, True))
+
+
         an = 0
         pts = []
         sig = [1 if op[0] != '-' else -1]
@@ -98,6 +105,7 @@ def SolveOp(s, exty = "Integer"):
             else:
                 print("SYNTAX ERROR in operation")
                 exit()
+
                 
     if(len(st) > 0):
         print("SYNTAX ERROR in operation")
@@ -122,4 +130,6 @@ def SolveOp(s, exty = "Integer"):
 # print(f"Reurn value: {SolveOp(op)}")
 
 pr = "(1+2*(3-1)*(4*5)/2)+1"
+pr = "(1+2)/(1+-10)"
+#pr = "10*-2+3"
 print(SolveOp(pr))
