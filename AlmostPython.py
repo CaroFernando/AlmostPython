@@ -52,7 +52,6 @@ if __name__ == "__main__":
         comandos = line.split(" ")
         if comandos == [''] or len(comandos) == 0:
             continue
-
         accion = comandos[0]
 
         # print(line,accion, AnalizadorLexico(line))        
@@ -77,13 +76,6 @@ if __name__ == "__main__":
     file.close()
 
     """
-        comando = ""
-        for c in comandos:
-            comando+=c+' '
-        print(comando) 
-        # Leo la accion a ajecutar, y la quito de mis comandos
-
-
     lines = [i for i in file]
     Execute_block(lines)
     """

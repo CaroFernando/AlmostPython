@@ -44,10 +44,10 @@ def ConvertType(tipo,x=None):
         else:
             return None
 
-def yaExiste(vars, word):
+def yaExiste(vars, variable):
     for tipo in VarVals:
         keys = list(vars[tipo].keys())
-        if word in keys:
+        if variable in keys:
             return (True,tipo)
     return (False,None)
 
@@ -58,7 +58,9 @@ def searchVar(vars):
             return True
     return False
 
-def buscarValoresEnLaExpresion(vars, index, line, expresion):
+def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
+    print("Index: ",index,line)
+    expresion = ""
     # Expresion
     index+=1
     while index < len(line) and line[index] != ",":
@@ -82,7 +84,7 @@ def buscarValoresEnLaExpresion(vars, index, line, expresion):
         index+=1
     # print("Tipo de Expresion - ", actual)
     # print("Variable - ", variable)
-    # print("Expresion - ", expresion)
+    print("Expresion - ", expresion)
     return expresion, index
 
 
@@ -116,7 +118,7 @@ def Declare(vars,line):
                 index+=2
             # Calculo la expresion
                 expresion = ""
-                expresion, index = buscarValoresEnLaExpresion(vars, index-1,line,expresion)
+                expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
                 #print("Tipo de Expresion - ", actual)
                 # print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
@@ -149,7 +151,7 @@ def Assign(vars,line):
     # Nombre de la variable
             variable = line[index - 1]
     # Expresion
-            expresion, index = buscarValoresEnLaExpresion(vars, index, line, expresion)
+            expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
 
         # Buscar la variable
         # Guardo si existe, y qeu tipo de variable es
@@ -231,8 +233,5 @@ def Print(vars,line):
             
 
 
-
-def Return(vars):
-    pass    
     
 

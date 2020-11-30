@@ -17,12 +17,12 @@ def ConvertType(tipo,x=None):
         elif ( x == "False" or x == "false"):
             return False
         else:
+            print("ERROORRR")
             return None
 
 def getvar(s):
     if s == "True" or s == "true": return 1
     if s == "False" or s == "false": return 0
-
     return float(s)
 
 def SolveOp(op, tipoDeExpresion = "Integer"):
