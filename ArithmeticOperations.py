@@ -129,7 +129,8 @@ def SolveOp(s, exty = "Integer"):
 # op = ['(', '1', '+', '2', ')', '*', '(', '2', '/', '1', ')']
 # print(f"Reurn value: {SolveOp(op)}")
 
-pr = "(1+2*(3-1)*(4*5)/2)+1"
-pr = "(1+2)/(1+-10)"
+#pr = "(1+2*(3-1)*(4*5)/2)+1"
+#pr = "(1+2)/(1+-10)"
 #pr = "10*-2+3"
-print(SolveOp(pr))
+# pr = "1+-10"
+#print(SolveOp(pr))

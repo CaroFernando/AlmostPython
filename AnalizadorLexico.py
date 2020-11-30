@@ -58,6 +58,14 @@ def esAritmetico(c):
     return False
 
 
+def esRelacional(c):
+    if c == "<": return True
+    if c == ">": return True
+    if c == "=": return True
+    if c == "!": return True
+    return False
+
+
 def esMasMenos(c):
     # Aritmeticos
     if c == "+": return True
@@ -99,7 +107,10 @@ def signSimplify(command):
     index = 0
     while index < len(command):
         c = command[index]
-        if esAritmetico(c):
+        if index < len(command) -1 and esRelacional(c) and command[index+1] == '=':
+            new.append(str(c)+"=")
+            index+=2
+        elif esAritmetico(c):
             new.append(str(c))
             index+=1
             signo = 1
@@ -140,12 +151,6 @@ def intOrFloat(n):
             return 2 # Int
     else: 
         return 1 # Float
-
-
-
-
-
-
 
 
 
