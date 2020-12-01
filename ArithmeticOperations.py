@@ -1,4 +1,4 @@
-from AnalizadorLexico import AnalizadorLexico
+from AnalizadorLexico import AnalizadorLexico, weaRara
 
 # from Functions import ConvertType
 VarVals = ["String","Integer","Decimal","Bool"]
@@ -30,21 +30,8 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): return ""
 
-    if tipoDeExpresion == "Bool": 
-        print(AnalizadorLexico(op))
-        print(AnalizadorLexico(op, True))
 
-        op = AnalizadorLexico(op, True)
-        index = 0
-        while index < len(op):
-            exp = op[index]
-            # print(exp)
-            if weaRara(exp):
-                print(exp) 
-            index+=1
-         
-        pass
-    elif tipoDeExpresion == "String": 
+    if tipoDeExpresion == "String": 
         ops = op.split("+")
         res = ""
         for op in ops:
@@ -57,9 +44,67 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         return str(res)
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
     # Integer bool o float
-    elif tipoDeExpresion == "Bool":
-        pass
-    else:
+
+
+    if tipoDeExpresion == "Bool": 
+        hola = AnalizadorLexico(op, True)
+        cont = 0
+        for cosa in hola:
+            if weaRara(cosa):
+                cont+=1
+        tipoDeExpresion = "Bool" if cont > 0 else "Decimal"
+
+
+    if tipoDeExpresion == "Bool": 
+        print(AnalizadorLexico(op))
+        print(AnalizadorLexico(op, True))
+
+        op = AnalizadorLexico(op, True)
+        # print(op)
+        index = 0
+        izq, der, c = '','',''
+        ya = False
+        while index < len(op):
+            exp = op[index]
+            # print(exp)
+            if weaRara(exp):
+                c = exp
+                ya = True
+            elif ya:
+                der+=str(exp)
+            else:
+                izq+=str(exp)
+            index+=1
+
+        print("IZQ - ", izq)
+        print("DER - ", der)
+            
+        izq = SolveSimpleOp(izq, tipoDeExpresion)
+        der = SolveSimpleOp(der, tipoDeExpresion)
+            
+        if c == "&&":
+            return bool(izq and der) 
+        if c == "!":
+            return bool(not der)
+        if c == "||":
+            return bool(izq or der) 
+
+        if c == "<":
+            return bool(izq < der) 
+        if c == ">":
+            return bool(izq > der) 
+        if c == "<=":
+            return bool(izq <= der) 
+        if c == ">=":
+            return bool(izq >= der) 
+        if c == "==":
+            print(bool(izq == der))
+            return bool(izq == der) 
+        if c == "!=":
+            return bool(izq != der) 
+#   (5*6 >= (4/2)) > (10)
+    
+    if tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal":
         print(AnalizadorLexico(op, True))
         al = AnalizadorLexico(op, True)
         an = 0
@@ -97,6 +142,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         for ind, res in enumerate(subres):
             finalres = finalres + res*sig[ind]
 
+        # print("SimpleFinalRes", finalres)
         return finalres
 
 def SolveOp(s, exty = "Integer"):
@@ -143,4 +189,9 @@ def SolveOp(s, exty = "Integer"):
 pr = "True+False"
 #pr = "10*-2+3"
 #pr = "-10"
-print(SolveOp(pr))
+
+#pr = "(5*6 >= ((4/2)>10))"
+
+pr = "(5*6 >= 4/2) * 10"
+
+#print(SolveOp(pr, "Bool"))
