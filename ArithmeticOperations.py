@@ -38,11 +38,11 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         index = 0
         while index < len(op):
             exp = op[index]
-            # print(exp)
+            print(exp)
             if weaRara(exp):
                 print(exp) 
             index+=1
-         
+        return 0
         pass
     elif tipoDeExpresion == "String": 
         ops = op.split("+")
@@ -141,6 +141,8 @@ pr = "(1+2*(3-1)*(4*-5)/2)+1"
 #pr = "(1+2)/(1+-10)"
 #pr = "1+6*4/3-7*9"
 pr = "True+False"
+pr = '(5*6>=(4/2))>10'
+pr = '5*6>=((4/2)>10)'
 #pr = "10*-2+3"
 #pr = "-10"
-print(SolveOp(pr))
+print(SolveOp(pr), 'Bool')
