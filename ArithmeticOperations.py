@@ -45,7 +45,6 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # elif tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal": 
     # Integer bool o float
 
-
     if tipoDeExpresion == "Bool": 
         hola = AnalizadorLexico(op, True)
         cont = 0
@@ -176,6 +175,7 @@ def SolveOp(s, exty = "Integer"):
         res = res + s[end:len(s)]
     print(res)
     return(SolveSimpleOp(res, exty))
+    #return(ConvertType(exty, SolveSimpleOp(res, exty)))
     
 
 # op = "10+20*2/4-10/5"
