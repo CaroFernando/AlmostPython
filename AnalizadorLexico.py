@@ -48,6 +48,14 @@ def esCaracterAuxiliar(c):
     if c == ")": return True
     return False
 
+
+def esLogico(c):
+    # Logicos
+    if c == "!": return True
+    if c == "&": return True
+    if c == "|": return True
+    return False
+
 def esAritmetico(c):
     # Aritmeticos
     if c == "+": return True
@@ -67,9 +75,9 @@ def esRelacional(c):
     
 def weaRara(c):
 
-    if c == "AND": return True
-    if c == "NOT": return True
-    if c == "OR": return True
+    if c == "&&": return True
+    if c == "!": return True
+    if c == "||": return True
 
     if c == "<": return True
     if c == ">": return True
@@ -134,8 +142,21 @@ def signSimplify(command):
     index = 0
     while index < len(command):
         c = command[index]
-        
-        if booleano(c):
+        if esLogico(c):
+            if c == '!':
+                if (index < len(command)-1) and command[index+1] == '=':
+                    new.append(str(c)+"=")
+                    index+=2
+                else: 
+                    new.append(str(c))
+                    index+=1
+            elif (index < len(command)-1) and c == command[index+1]:
+                new.append(str(c)+str(c))
+                index+=2
+            else:
+                print("ERROR - Usaste una mala expresion logica lel :p")
+                sys.exit()
+        elif booleano(c):
             new.append(str(booleanoCheck(c)))
             index+=1
     # Juntar ==, <=, etc

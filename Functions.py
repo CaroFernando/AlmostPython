@@ -31,6 +31,8 @@ def ConvertType(tipo,x=None):
     if tipo == "Integer": return 0 if x == None else int(x)
     if tipo == "Decimal": return 0.0 if x == None else float(x)
     if tipo == "Bool": 
+        if x == True or x == False:
+            return x
         if x == None:
             return False 
         if type(x) == int:
@@ -119,8 +121,8 @@ def Declare(vars,line):
             # Calculo la expresion
                 expresion = ""
                 expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
-                print("Tipo de Expresion - ", actual)
-                print("Expresion - ", expresion)
+                # print("Tipo de Expresion - ", actual)
+                # print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
                 # print("Evaluada - ", expresion)
                 val = ConvertType(actual,expresion)
