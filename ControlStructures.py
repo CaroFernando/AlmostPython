@@ -1,42 +1,64 @@
-# Estructuras de Control
+from AnalizadorLexico import *
 
-def Execute_line(line):
-    # funcion para ejecutar una line
-    # esta funcion llama a las funcinoes de palabras reservadas
-    print(f"Exec: {line}")
-    pass
-
-def For(args, block):
-    # Estructura de estructuras de control
-    # estas funciones llaman a execute_line
-
-    print(block)
-    pass
-
-
-def Execute_block(block):
-    ind = 0
-    while(ind < len(block)):
-        line = block[ind]
-        pts = line.split(" ")
-
+def ExecuteBlock(lines, vars):
+    i = 0
+    while(i < len(lines)):
+        pts = AnalizadorLexico(lines[i])
+        
         if(pts[0] == 'For'):
-            if(line[4] == '(' and line[len(line)-3] == ')'):
-                args = line[5:len(line)-3].split(';')
-                ex = []
-
-                temp = ind+1
-                while(temp < len(block) and block[temp][0] == '\t'):
-                    ex.append(block[temp][1:len(block[temp])])
-                    temp+=1
-                ind = temp
-
-                print(f"For: args: {args}")
-                print(f"lines: {ex}")
+            infor = []
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                infor.append(lines[i][1:])
+                i += 1
                 
-                
+            print(f'infor: {infor}')
+            
+            # Declaracion de for
+            while(False): # comparacion de variable
+                ExecuteBlock(infor) # assign
+            # eliminar variable de for
+            ExecuteBlock(infor)
+            
         elif(pts[0] == 'If'):
-            pass
+            inif = []
+            inelse = []
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                inif.append(lines[i][1:])
+                i += 1
+                
+            if(i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Else'):
+                i += 1
+                while(i < len(lines) and lines[i][0]=='\t'):
+                    inelse.append(lines[i][1:])
+                    i += 1
+                    
+            print(f'inif: {inif} inelse: {inelse}')
+
+            op = lines[4:-2]
+            print(op)
+            
+            if(True): # comparacion de variables
+                ExecuteBlock(inif)
+            elif(len(inelse) > 0):
+                ExecuteBlock(inelse)
+            
+        elif(pts[0] == 'While'):
+            inwhile = []
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                inwhile.append(lines[i][1:])
+                i += 1
+            print(f'inwhile: {inwhile}')
+            
+            while(False): #comparacion de la variable
+                ExecuteBlock(inwhile)
+            ExecuteBlock(inwhile)
+            
         else:
-            Execute_line(line)
-        ind+=1;
+            print(f'exline: {lines[i][:-1]}')
+            # ExecuteLine(lines[i], vars)
+            i+=1
+
+print("Hola Mundo", end = ',')

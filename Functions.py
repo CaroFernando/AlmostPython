@@ -31,14 +31,14 @@ def ConvertType(tipo,x=None):
     if tipo == "Integer": return 0 if x == None else int(x)
     if tipo == "Decimal": return 0.0 if x == None else float(x)
     if tipo == "Bool": 
-        if x == True or x == False:
+        if type(x) == bool:
             return x
         if x == None:
             return False 
-        if type(x) == int:
-            return False if x == 0 else True
         if type(x) == float:
             return False if x == 0.0 else True 
+        if type(x) == int:
+            return False if x == 0 else True
         if ( x == "True" or x == "true"):
             return True
         elif ( x == "False" or x == "false"):
@@ -121,12 +121,12 @@ def Declare(vars,line):
             # Calculo la expresion
                 expresion = ""
                 expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
-                # print("Tipo de Expresion - ", actual)
-                # print("Expresion - ", expresion)
+                print("Tipo de Expresion - ", actual)
+                print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
-                # print("Evaluada - ", expresion)
+                print("Evaluada - ", expresion)
                 val = ConvertType(actual,expresion)
-                # print("Evaluada al Valor - ", val)
+                print("Evaluada al Valor - ", val)
             if yaExiste(vars, word)[0] == True: 
                 print("ERROR - Ya existe una variable con ese nombre")
                 return None
@@ -152,8 +152,10 @@ def Assign(vars,line):
         if word == "=":
     # Nombre de la variable
             variable = line[index - 1]
+            print("Nombre Variable - ",variable)
     # Expresion
             expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
+            print("Expresion - ", expresion)
 
         # Buscar la variable
         # Guardo si existe, y qeu tipo de variable es
@@ -161,12 +163,13 @@ def Assign(vars,line):
             # print("Existe? - ",existe)
             # print("Tipo - ",tipo)
             if not existe:
-                print("ERROR - Variable "+word+" no fue declarada previamente.")
+                print("ERROR - Variable "+variable+" no fue declarada previamente.")
+                exit()
                 return
             expresion = SolveOp(expresion, tipo)
-            # print("Evaluada - ", expresion)
+            print("Evaluada - ", expresion)
             val = ConvertType(tipo, expresion)
-            # print("Evaluada al Valor - ", val)
+            print("Evaluada al Valor - ", val)
             vars[tipo][variable] = val
     
         variable, expresion = "",""
@@ -234,6 +237,16 @@ def Print(vars,line):
     print(s)
             
 
+def Condition(vars, line):
+    expresion, index = buscarValoresEnLaExpresion(vars, -1, line) #, expresion)
+    res = SolveOp(expresion, "Bool")
+    return res
 
-    
 
+
+"""
+a = dict()
+InitVars(a)
+print(a)
+Declare(a,"Declare Integer x = 10")
+print(Condition(a,"x <= 3"))"""

@@ -1,9 +1,9 @@
+#!/usr/bin/python3.8
 # LIBRARIES
 
 import sys
-from Functions import InitVars,Declare,Delete,Assign,ShowVars,Print,Read
+from Functions import InitVars
 from ControlStructures import Execute_block
-from AnalizadorLexico import AnalizadorLexico
 
 # VARIABLES
 
@@ -19,18 +19,17 @@ def Assign(line):
 def Delete():
 def Read():
 def Print(line):
-def Return():
 """
 # Estructuras de Control
 """
-def Execute_line(line):
-def For():
+def ExecuteBlock(line):
 """
 
 # MAIN
 
 if __name__ == "__main__":
-
+    print(sys.version)
+    
     ## Leer argumentos dados por consola
     ## Deben darse al menos 2 argumentos
     if len(sys.argv) < 2: 
@@ -42,6 +41,7 @@ if __name__ == "__main__":
 
     ## Abrir el archivo y leerlo 
     file = open(file_name, "r")
+    """
     for line in file:
 
         # Quitar salto de linea del final 
@@ -76,7 +76,5 @@ if __name__ == "__main__":
     file.close()
 
     """
-    lines = [i for i in file]
-    Execute_block(lines)
-    """
+    ExecuteLine([i for i in file], vars)
 
