@@ -1,44 +1,90 @@
-# Estructuras de Control
+from AnalizadorLexico import *
+from Functions import *
 
-def Execute_line(line):
-    # funcion para ejecutar una line
-    # esta funcion llama a las funcinoes de palabras reservadas
-    print(f"Exec: {line}")
-    pass
+def ExecuteLine(line, action, vars):
+    print("Action", action)
+    if action == "Declare":
+        Declare(vars,line)
+    elif action == "Assign":
+        Assign(vars,line)
+    elif action == "Delete":
+        Delete(vars,line)
+    elif action == "ShowVars":
+        ShowVars(vars)
+    elif action == "Read":
+        Read(vars,line)
+    elif action == "Print":
+        Print(vars,line)
+    else:
+        print("Error: Invalid sintaxis")
+        exit()
 
-def For(vars,args, block):
-    # Estructura de estructuras de control
-    # estas funciones llaman a execute_line
-
-    simon = Condition(vars, expresion)
-
-    print(block)
-    pass
-
-
-def Execute_block(block):
-    ind = 0
-    while(ind < len(block)):
-        line = block[ind]
-        pts = line.split(" ")
+def ExecuteBlock(lines, vars):
+    i = 0
+    while(i < len(lines)):
+        pts = AnalizadorLexico(lines[i])
+        if(len(pts) == 0):
+            i += 1
+            continue
 
         if(pts[0] == 'For'):
-            if(line[4] == '(' and line[len(line)-3] == ')'):
-                args = line[5:len(line)-3].split(';')
-                ex = []
-
-                temp = ind+1
-                while(temp < len(block) and block[temp][0] == '\t'):
-                    ex.append(block[temp][1:len(block[temp])])
-                    temp+=1
-                ind = temp
-
-                print(f"For: args: {args}")
-                print(f"lines: {ex}")
+            print("# For")
+            temp = lines[i][4:-2].split(';')
+            infor = []
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                print('Line infor: ', lines[i][1:])
+                infor.append(lines[i][1:])
+                i += 1
                 
-                
+            print(f'infor:{infor}')
+            print(f'temp: {temp}')
+            
+            # Declaracion de for
+            ExecuteLine(temp[0], "Declare", vars)
+
+            while(Condition(vars, temp[1])): # comparacion de variable
+                ExecuteBlock(infor, vars) # assign
+                ExecuteLine(temp[2], "Assign", vars)
+            # eliminar variable de for
+            
         elif(pts[0] == 'If'):
-            pass
+            inif = []
+            inelse = []
+            cond = lines[i][3:-2]
+            print("If condition:", cond)
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                inif.append(lines[i][1:])
+                i += 1
+                
+            if(i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Else'):
+                i += 1
+                while(i < len(lines) and lines[i][0]=='\t'):
+                    inelse.append(lines[i][1:])
+                    i += 1
+                    
+            print(f'inif: {inif} inelse: {inelse}')
+            
+            if(Condition(vars, cond)): # comparacion de variables
+                ExecuteBlock(inif, vars)
+            elif(len(inelse) > 0):
+                ExecuteBlock(inelse, vars)
+            
+        elif(pts[0] == 'While'):
+            inwhile = []
+            cond = lines[5:-2]
+            i += 1
+            while(i < len(lines) and lines[i][0]=='\t'):
+                inwhile.append(lines[i][1:])
+                i += 1
+            print(f'inwhile: {inwhile}')
+            
+            while(Condition(vars, cond)): #comparacion de la variable
+                ExecuteBlock(inwhile, vars)
+            
         else:
-            Execute_line(line)
-        ind+=1;
+            print(f'exline: {lines[i][:-1]}')
+            ExecuteLine(lines[i], pts[0], vars)
+            i+=1
+

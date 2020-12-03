@@ -1,7 +1,4 @@
-Declare Integer a = -10
-ShowVars
-Assign a = 1 + a
-ShowVars
-
-
-
+Declare Integer i = 0
+While(i < 5)
+	Print "Hola"
+	Assign i = i + 1

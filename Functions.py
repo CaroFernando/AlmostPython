@@ -68,9 +68,9 @@ def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
     index+=1
     while index < len(line) and line[index] != ",":
         extra = str(line[index])
-    # Checar si lo que voy a añadir es una variabe
-    # Si lo es, agregar no la variable sino su valor
-    # Si es string, añadir "" para que funcione
+        # Checar si lo que voy a añadir es una variabe
+        # Si lo es, agregar no la variable sino su valor
+        # Si es string, añadir "" para que funcione
         existe, tipo = yaExiste(vars, extra)
 
         if existe:
@@ -152,15 +152,20 @@ def Assign(vars,line):
         if index > 1 and line[index-1] == '=': continue
 
         if word == "=":
-    # Nombre de la variable
+            # Nombre de la variable
             variable = line[index - 1]
+<<<<<<< HEAD
             # print("Nombre Variable - ",variable)
     # Expresion
+=======
+            print("Nombre Variable - ",variable)
+            # Expresion
+>>>>>>> 4da06a7f52d42521398defeebf51144089b225a0
             expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
             # print("Expresion - ", expresion)
 
-        # Buscar la variable
-        # Guardo si existe, y qeu tipo de variable es
+            # Buscar la variable
+            # Guardo si existe, y qeu tipo de variable es
             existe, tipo = yaExiste(vars, variable)
             # print("Existe? - ",existe)
             # print("Tipo - ",tipo)
