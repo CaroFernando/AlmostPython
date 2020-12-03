@@ -154,13 +154,10 @@ def Assign(vars,line):
         if word == "=":
             # Nombre de la variable
             variable = line[index - 1]
-<<<<<<< HEAD
             # print("Nombre Variable - ",variable)
-    # Expresion
-=======
+            # Expresion
             print("Nombre Variable - ",variable)
             # Expresion
->>>>>>> 4da06a7f52d42521398defeebf51144089b225a0
             expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
             # print("Expresion - ", expresion)
 
