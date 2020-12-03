@@ -8,6 +8,7 @@ from ArithmeticOperations import SolveOp
 # VARIABLES
 VarVals = ["String","Integer","Decimal","Bool"]
 
+debugs = False
 
 #FUNCIONES
 
@@ -121,12 +122,12 @@ def Declare(vars,line):
             # Calculo la expresion
                 expresion = ""
                 expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
-                print("Tipo de Expresion - ", actual)
-                print("Expresion - ", expresion)
+                # print("Tipo de Expresion - ", actual)
+                # print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
-                print("Evaluada - ", expresion)
+                # print("Evaluada - ", expresion)
                 val = ConvertType(actual,expresion)
-                print("Evaluada al Valor - ", val)
+                # print("Evaluada al Valor - ", val)
             if yaExiste(vars, word)[0] == True: 
                 print("ERROR - Ya existe una variable con ese nombre")
                 return None
@@ -134,6 +135,7 @@ def Declare(vars,line):
             vars[actual][word] = val
         else:
             print("ERROR - No se asigno un Tipo de variable a "+word)
+            exit()
     # ShowVars(vars)
     return True
 
@@ -152,10 +154,10 @@ def Assign(vars,line):
         if word == "=":
     # Nombre de la variable
             variable = line[index - 1]
-            print("Nombre Variable - ",variable)
+            # print("Nombre Variable - ",variable)
     # Expresion
             expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
-            print("Expresion - ", expresion)
+            # print("Expresion - ", expresion)
 
         # Buscar la variable
         # Guardo si existe, y qeu tipo de variable es
@@ -167,9 +169,9 @@ def Assign(vars,line):
                 exit()
                 return
             expresion = SolveOp(expresion, tipo)
-            print("Evaluada - ", expresion)
+            # print("Evaluada - ", expresion)
             val = ConvertType(tipo, expresion)
-            print("Evaluada al Valor - ", val)
+            # print("Evaluada al Valor - ", val)
             vars[tipo][variable] = val
     
         variable, expresion = "",""
@@ -190,6 +192,7 @@ def Delete(vars, line):
                 del vars[tipo][word]
         if not jala:
             print("ERROR - Variable "+word+" no fue declarada previamente.")
+            exit()
             return None
     return
 
@@ -208,6 +211,7 @@ def Read(vars, line):
                 vars[tipo][word] = ConvertType(tipo, expresion)
         if not jala:
             print("ERROR - Variable "+word+" no fue declarada previamente.")
+            exit()
             return None
     return
 
@@ -221,6 +225,7 @@ def Print(vars,line):
     #Si no se separa por comas ','
         if index <len(line)-1 and line[index+1] != ',':
             print("ERROR - Al imprimir debe de separarse por comas")
+            exit()
         word = line[index]
         index+=2
         existe, tipo = yaExiste(vars, word)
@@ -232,6 +237,7 @@ def Print(vars,line):
         else:
             if len(word) < 2 or word[0]!='"' or word[-1] !='"':
                 print("ERROR - String debe estar entre \" \".")
+                exit()
             else:
                 s+=word[1:len(word)-1]
     print(s)

@@ -1,5 +1,7 @@
 from AnalizadorLexico import AnalizadorLexico, weaRara
 
+debugs = False
+
 # from Functions import ConvertType
 VarVals = ["String","Integer","Decimal","Bool"]
 def ConvertType(tipo,x=None):
@@ -19,6 +21,7 @@ def ConvertType(tipo,x=None):
             return False
         else:
             print("ERROORRR")
+            exit()
             return None
 
 def getvar(s):
@@ -37,6 +40,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         for op in ops:
             if len(op) < 2 or op[0] != '"' or op[-1] != '"':
                 print("ERROR - String debe ser declarada entre \" \".")
+                exit()
                 return None
         # Eliminar los ""
             op = op[1:len(op)-1]
@@ -75,8 +79,8 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
                 izq+=str(exp)
             index+=1
 
-        print("IZQ - ", izq)
-        print("DER - ", der)
+        if(debugs): print("IZQ - ", izq)
+        if(debugs): print("DER - ", der)
             
         izq = SolveSimpleOp(izq, tipoDeExpresion)
         der = SolveSimpleOp(der, tipoDeExpresion)
@@ -104,7 +108,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
 #   (5*6 >= (4/2)) > (10)
     
     if tipoDeExpresion == "Integer" or tipoDeExpresion == "Decimal":
-        print(AnalizadorLexico(op, True))
+        if(debugs): print(AnalizadorLexico(op, True))
         al = AnalizadorLexico(op, True)
         an = 0
         pts = []
@@ -141,7 +145,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         for ind, res in enumerate(subres):
             finalres = finalres + res*sig[ind]
 
-        # print("SimpleFinalRes", finalres)
+        if(debugs): print("SimpleFinalRes", finalres)
         return finalres
 
 def SolveOp(s, exty = "Integer"):
@@ -173,7 +177,7 @@ def SolveOp(s, exty = "Integer"):
     if(len(pairs) == 0): res = s
     else:
         res = res + s[end:len(s)]
-    print(res)
+    if(debugs): print(res)
     return(SolveSimpleOp(res, exty))
     #return(ConvertType(exty, SolveSimpleOp(res, exty)))
     
