@@ -3,7 +3,7 @@
 
 import sys
 from Functions import InitVars
-from ControlStructures import Execute_block
+from ControlStructures import ExecuteBlock
 
 # VARIABLES
 
@@ -72,9 +72,6 @@ if __name__ == "__main__":
             print("Error: Invalid sintaxis")
             file.close()
             sys.exit()
-    
-    file.close()
-
     """
-    ExecuteLine([i for i in file], vars)
-
+    ExecuteBlock([i for i in file], vars)
+    file.close()

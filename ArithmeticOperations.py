@@ -28,7 +28,8 @@ def getvar(s):
 
 def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
-    if(len(op) == 0): return ""
+    if(len(op) == 0): 
+        return ""
         op = AnalizadorLexico(op, True)
         index = 0
         while index < len(op):
@@ -199,13 +200,9 @@ pr = '(5*6>=(4/2))>10'
 pr = '5*6>=((4/2)>10)'
 #pr = "10*-2+3"
 #pr = "-10"
-<<<<<<< HEAD
-print(SolveOp(pr), 'Bool')
-=======
 
 #pr = "(5*6 >= ((4/2)>10))"
 
 pr = "(5*6 >= 4/2) * 10"
 
 #print(SolveOp(pr, "Bool"))
->>>>>>> 8675e2a54e5fc3c30b6b01bf6556303f0c7b5ec7
