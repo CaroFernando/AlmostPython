@@ -62,7 +62,7 @@ def searchVar(vars):
     return False
 
 def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
-    print("Index: ",index,line)
+    # print("Index: ",index,line)
     expresion = ""
     # Expresion
     index+=1
@@ -98,6 +98,9 @@ def Declare(vars,line):
     # print(line)
     line.pop(0)
     index = -1
+    
+    auxNames = []
+
     while index < len(line)-1:
         index+=1
         word = line[index]
@@ -129,15 +132,15 @@ def Declare(vars,line):
                 val = ConvertType(actual,expresion)
                 # print("Evaluada al Valor - ", val)
             if yaExiste(vars, word)[0] == True: 
-                print("ERROR - Ya existe una variable con ese nombre")
-                return None
-
+                print("ERROR - Ya existe una variable con el nombre ",word,'.')
+                exit()
+            auxNames.append(word)
             vars[actual][word] = val
         else:
             print("ERROR - No se asigno un Tipo de variable a "+word)
             exit()
     # ShowVars(vars)
-    return True
+    return auxNames
 
 def Assign(vars,line):
     if vars == dict(): InitVars(vars)
@@ -156,7 +159,7 @@ def Assign(vars,line):
             variable = line[index - 1]
             # print("Nombre Variable - ",variable)
             # Expresion
-            print("Nombre Variable - ",variable)
+            # print("Nombre Variable - ",variable)
             # Expresion
             expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
             # print("Expresion - ", expresion)

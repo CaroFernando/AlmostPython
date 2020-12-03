@@ -1,4 +1,18 @@
-Declare Integer i = 0
-While(i < 5)
-	Print "Hola"
-	Assign i = i + 1
+For(Declare Integer i=0; i<5; Assign i = i+1)
+ Declare String s
+ For(Declare Integer j=0; j<5-i; Assign j = j+1)
+  Assign s = s + "*"
+  Print "(i,j) = (",i,",",j,")"
+  If(j > 2)
+   Print " j > 2"
+  Else
+   Print " j <= 2"
+ Print s
+
+
+
+
+Declare Integer i = 10
+While(i >= 0)
+ Print "Siuuuuu"
+ Assign i = i -1 
