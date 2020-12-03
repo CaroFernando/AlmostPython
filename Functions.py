@@ -239,8 +239,7 @@ def Print(vars,line):
 
 def Condition(vars, line):
     expresion, index = buscarValoresEnLaExpresion(vars, -1, line) #, expresion)
-    res = SolveOp(expresion, "Bool")
-    return res
+    return SolveOp(expresion, "Bool")
 
 
 
