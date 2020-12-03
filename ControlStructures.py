@@ -6,9 +6,11 @@ def Execute_line(line):
     print(f"Exec: {line}")
     pass
 
-def For(args, block):
+def For(vars,args, block):
     # Estructura de estructuras de control
     # estas funciones llaman a execute_line
+
+    simon = Condition(vars, expresion)
 
     print(block)
     pass

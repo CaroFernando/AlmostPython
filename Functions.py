@@ -237,6 +237,16 @@ def Print(vars,line):
     print(s)
             
 
+def Condition(vars, line):
+    expresion, index = buscarValoresEnLaExpresion(vars, -1, line) #, expresion)
+    res = SolveOp(expresion, "Bool")
+    return res
 
-    
 
+
+"""
+a = dict()
+InitVars(a)
+print(a)
+Declare(a,"Declare Integer x = 10")
+print(Condition(a,"x <= 3"))"""
