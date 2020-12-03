@@ -1,0 +1,5 @@
+Declare Integer x = 3.1
+Declare Integer y = x * 2
+Declare String s = "Hola"
+Declare Decimal z = x + y + 1.1.1
+ShowVars

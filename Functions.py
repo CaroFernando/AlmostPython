@@ -1,7 +1,7 @@
 
 # IMPORTS
 
-from AnalizadorLexico import AnalizadorLexico
+from AnalizadorLexico import AnalizadorLexico, intOrFloat, esNumero
 from ArithmeticOperations import SolveOp
 
 
@@ -29,8 +29,24 @@ def ShowVars(vars):
 
 def ConvertType(tipo,x=None):
     if tipo == "String": return "" if x == None else str(x)
-    if tipo == "Integer": return 0 if x == None else int(x)
-    if tipo == "Decimal": return 0.0 if x == None else float(x)
+    if tipo == "Integer": 
+        if x == None:
+            return 0 
+        else:
+            if intOrFloat(x) > 0:
+                return int(x)
+            else:
+                print("Error - Variable no puede ser casteada a Integer.")
+                exit()
+    if tipo == "Decimal": 
+        if x == None:
+            return 0.0 
+        else:
+            if intOrFloat(x) > 0:
+                return float(x)
+            else:
+                print("Error - Variable no puede ser casteada a Decimal.")
+                exit()
     if tipo == "Bool": 
         if type(x) == bool:
             return x
@@ -45,7 +61,8 @@ def ConvertType(tipo,x=None):
         elif ( x == "False" or x == "false"):
             return False
         else:
-            return None
+            print("Error - Variable no puede ser casteada a Bool.")
+            exit()
 
 def yaExiste(vars, variable):
     for tipo in VarVals:
@@ -61,7 +78,7 @@ def searchVar(vars):
             return True
     return False
 
-def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
+def buscarValoresEnLaExpresion(vars, index, line, tipazo="Decimal"): #, expresion):
     # print("Index: ",index,line)
     expresion = ""
     # Expresion
@@ -72,7 +89,8 @@ def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
         # Si lo es, agregar no la variable sino su valor
         # Si es string, añadir "" para que funcione
         existe, tipo = yaExiste(vars, extra)
-
+        
+        #print(f"Extra: {extra}")
         if existe:
             # print("Extra - ",extra)    
             # print("Valor - ", vars[tipo][extra])    
@@ -82,7 +100,16 @@ def buscarValoresEnLaExpresion(vars, index, line): #, expresion):
                 expresion+='"'
             else:
                 expresion+=str(vars[tipo][extra])
+        elif len(extra) > 2 and extra[0] == extra[-1] and extra[0] == '"' and tipazo != "String":
+            print("Error - Variable no puede ser casteada a Integer o Decimal.")
+            exit()
+        
         else:
+            if len(extra) > 0 and esNumero(extra[0]):
+                # print(f"Extra: {extra}")
+                if intOrFloat(extra) == 0:
+                    print("Error - Variable no puede ser casteada a Integer o Decimal.")
+                    exit()
             expresion += extra
         index+=1
     # print("Tipo de Expresion - ", actual)
@@ -116,15 +143,15 @@ def Declare(vars,line):
     # Valor por default
             val = ConvertType(actual)
             #print("Index - ",index)
-            #print("Nombre Variable - ",word)
-            #print("Valor Variable - ", str(val))
+            # print("Nombre Variable - ",word)
+            # print("Valor Variable - ", str(val))
     # Si se le asigno una expresion ...
             if index < len(line)-2 and line[index+1] == '=':
             # Paso mi valor, y el =
                 index+=2
             # Calculo la expresion
                 expresion = ""
-                expresion, index = buscarValoresEnLaExpresion(vars, index-1,line) #,expresion)
+                expresion, index = buscarValoresEnLaExpresion(vars, index-1,line,actual)
                 # print("Tipo de Expresion - ", actual)
                 # print("Expresion - ", expresion)
                 expresion = SolveOp(expresion, actual)
@@ -137,7 +164,7 @@ def Declare(vars,line):
             auxNames.append(word)
             vars[actual][word] = val
         else:
-            print("ERROR - No se asigno un Tipo de variable a "+word)
+            print("ERROR - No se asigno un Tipo de variable a",word)
             exit()
     # ShowVars(vars)
     return auxNames
