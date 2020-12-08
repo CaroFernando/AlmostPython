@@ -1,0 +1,8 @@
+For(Declare Integer i=0; i<5; Assign i = i+1)
+ Declare String s
+ For(Declare Integer j=0; j<5-i; Assign j = j+1)
+  Assign s = s + "*"
+ Print s
+
+
+

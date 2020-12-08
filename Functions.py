@@ -101,12 +101,12 @@ def buscarValoresEnLaExpresion(vars, index, line, tipazo="Decimal"): #, expresio
             else:
                 expresion+=str(vars[tipo][extra])
         elif len(extra) > 2 and extra[0] == extra[-1] and extra[0] == '"' and tipazo != "String":
+            #print(f"Tipazo: {tipazo}")
             print("Error - Variable no puede ser casteada a Integer o Decimal.")
             exit()
-        
         else:
             if len(extra) > 0 and esNumero(extra[0]):
-                # print(f"Extra: {extra}")
+                #print(f"Extra: {extra}")
                 if intOrFloat(extra) == 0:
                     print("Error - Variable no puede ser casteada a Integer o Decimal.")
                     exit()
@@ -184,18 +184,18 @@ def Assign(vars,line):
         if word == "=":
             # Nombre de la variable
             variable = line[index - 1]
-            # print("Nombre Variable - ",variable)
-            # Expresion
-            # print("Nombre Variable - ",variable)
-            # Expresion
-            expresion, index = buscarValoresEnLaExpresion(vars, index, line) #, expresion)
-            # print("Expresion - ", expresion)
+            #print("Nombre Variable - ",variable)
 
             # Buscar la variable
             # Guardo si existe, y qeu tipo de variable es
             existe, tipo = yaExiste(vars, variable)
             # print("Existe? - ",existe)
             # print("Tipo - ",tipo)
+
+            # Expresion
+            expresion, index = buscarValoresEnLaExpresion(vars, index, line, tipo) #, expresion)
+            #print("Expresion - ", expresion)
+            
             if not existe:
                 print("ERROR - Variable "+variable+" no fue declarada previamente.")
                 exit()
