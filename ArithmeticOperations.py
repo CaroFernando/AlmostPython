@@ -33,7 +33,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
     # print("DEntro op - ",op, " ", tipoDeExpresion)
     if(len(op) == 0): 
         return ""
-        op = AnalizadorLexico(op, True)
+        """op = AnalizadorLexico(op, True)
         index = 0
         while index < len(op):
             exp = op[index]
@@ -42,7 +42,7 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
                 print(exp) 
             index+=1
         return 0
-        pass
+        pass"""
     elif tipoDeExpresion == "String": 
         ops = op.split("+")
         res = ""
@@ -105,7 +105,6 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
         if c == ">=":
             return bool(izq >= der) 
         if c == "==":
-            print(bool(izq == der))
             return bool(izq == der) 
         if c == "!=":
             return bool(izq != der) 

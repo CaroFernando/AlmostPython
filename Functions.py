@@ -231,12 +231,23 @@ def Delete(vars, line):
 def Read(vars, line):
     line = AnalizadorLexico(line)
     line.pop(0)
+    exp2 = AnalizadorLexico(input())
+    exp = []
+    for cosoto in exp2:
+        if cosoto != ",":
+            exp.append(cosoto)
+
+    # print(f"Exp: {exp}")
+    ind = 0
     for word in line:
+        if word == ",": continue
         jala = False
         for tipo in VarVals:
             keys = list(vars[tipo].keys())
             if word in keys:
-                expresion = input()
+                expresion = exp[ind]
+                ind+=1
+                # print(expresion)
                 expresion = SolveOp(expresion, tipo)
                 # print("Lectura - ",expresion)
                 jala = True

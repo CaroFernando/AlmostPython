@@ -1,4 +1,0 @@
-Declare String x = "2", String d
-Read x,d
-Print "TU cadena es: ",x
-Print "TU cadena 2 es: ",d
