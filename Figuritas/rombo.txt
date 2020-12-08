@@ -1,0 +1,16 @@
+For(Declare Integer i=0; i<5; Assign i = i+1)
+ Declare String s
+ For(Declare Integer j=0; j<5; Assign j = j+1)
+  If(j-i >=0)
+   Assign s = s + "*"
+  Else
+   Assign s = s + " "
+ For(Declare Integer j=0; j<5; Assign j = j+1)
+  If(i-j >=0)
+   Assign s = s + "*"
+  Else
+   Assign s = s + " "
+ Print s
+
+
+

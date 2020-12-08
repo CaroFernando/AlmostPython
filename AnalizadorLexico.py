@@ -133,6 +133,9 @@ def AnalizadorLexico(command, simplificarSignos = False):
 
     if simplificarSignos == True:
         l = signSimplify(l)
+
+    
+
     return l
 
 
