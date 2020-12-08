@@ -1,9 +1,13 @@
-Declare Integer a = 2
+Declare Integer a = 11
 Assign a = a + 1
 Print a
-If(a > 10)
- Print "op1"
-Elseif(a == 2)
- Print "op2"
-Else
- Print "op3"
+
+
+For(Declare Integer i = 0; i < 10; Assing i = i + 1)
+ If(a > 10)
+  Print "op1"
+ Elseif(a == 2)
+  Print "op2"
+ Else
+  Print "op3"
+ Print "Ya"

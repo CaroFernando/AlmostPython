@@ -1,7 +1,8 @@
 from AnalizadorLexico import *
 from Functions import *
 
-debugs = False
+debugs = False 
+ALDegub = True
 
 def ExecuteLine(line, action, vars):
     if debugs: print("Action", action)
@@ -27,6 +28,16 @@ def ExecuteBlock(lines, vars):
     i = 0
 
     while(i < len(lines)):
+        val = False
+        for t in lines[i]:
+            if t != '\n' or t != '\t' or t != ' ':
+                val = True
+                break
+
+        if(not val):
+            i += 1
+            continue
+
         pts = AnalizadorLexico(lines[i])
         if debugs: print(pts)
         if(len(pts) == 0):
