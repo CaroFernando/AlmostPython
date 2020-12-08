@@ -64,24 +64,43 @@ def ExecuteBlock(lines, vars):
             inif = []
             inelse = []
             cond = lines[i][3:-2]
+            solved = False
+            
             if debugs: print("If condition:", cond)
             i += 1
             while(i < len(lines) and lines[i][0]==' '):
                 inif.append(lines[i][1:])
                 i += 1
-                
-            if(i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Else'):
+
+            if(Condition(vars, cond)):
+                ExecuteBlock(inif, vars)
+                solved = True
+    
+            elif not solved and i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Elseif':
+                while i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Elseif':
+                    eicond = lines[i][7:-2]
+                    i += 1
+                    inesleif = []
+                    while(i < len(lines) and lines[i][0]==' '):
+                        inesleif.append(lines[i][1:])
+                        i += 1
+                        
+                    if Condition(vars, eicond):
+                        ExecuteBlock(inesleif, vars)
+                        solved = True
+                        
+            if(not solved and i < len(lines) and AnalizadorLexico(lines[i])[0] == 'Else'):
                 i += 1
                 while(i < len(lines) and lines[i][0]==' '):
                     inelse.append(lines[i][1:])
                     i += 1
-                    
-            if debugs: print(f'inif: {inif} inelse: {inelse}')
-            
-            if(Condition(vars, cond)): # comparacion de variables
-                ExecuteBlock(inif, vars)
-            elif(len(inelse) > 0):
                 ExecuteBlock(inelse, vars)
+                
+            while i < len(lines) and (AnalizadorLexico(lines[i])[0] == 'Elseif' or AnalizadorLexico(lines[i])[0] == 'Else'):
+                i += 1
+                while(i < len(lines) and lines[i][0]==' '):
+                    inelse.append(lines[i][1:])
+                    i += 1
             
         elif(pts[0] == 'While'):
             inwhile = []
@@ -96,17 +115,14 @@ def ExecuteBlock(lines, vars):
                 ExecuteBlock(inwhile, vars)
         else:
             if debugs: print(f'exline: {lines[i][:-1]}')
-            algo = ExecuteLine(lines[i], pts[0], vars)
+            temp = ExecuteLine(lines[i], pts[0], vars)
             i+=1
-            # print(f"Algo: {algo}")
-            #print(f"Algo Tipo: {type(algo)}")
-            if type(algo) == type(list()): 
-                declared.extend(algo)
+            if type(temp) == type(list()): 
+                declared.extend(temp)
 
     #print(f"Declared : {declared}")
-    for coso in declared:
-        varNames+=coso+' ' 
-    #if debugs: 
+    for i in declared:
+        varNames+=i+' ' 
     ExecuteLine(varNames, "Delete", vars)
 
 

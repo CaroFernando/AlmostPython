@@ -68,17 +68,12 @@ def SolveSimpleOp(op, tipoDeExpresion = "Integer"):
 
 
     if tipoDeExpresion == "Bool": 
-        # print(AnalizadorLexico(op))
-        # print(AnalizadorLexico(op, True))
-
         op = AnalizadorLexico(op, True)
-        # print(op)
         index = 0
         izq, der, c = '','',''
         ya = False
         while index < len(op):
             exp = op[index]
-            # print(exp)
             if weaRara(exp):
                 c = exp
                 ya = True
@@ -168,12 +163,12 @@ def SolveOp(s, exty = "Integer"):
                 if(len(st) == 1): pairs.append((st[len(st)-1], ind))
                 st.pop(len(st)-1)
             else:
-                print("SYNTAX ERROR in operation")
+                print("SYNTAX ERROR in operation parenthesis")
                 exit()
 
                 
     if(len(st) > 0):
-        print("SYNTAX ERROR in operation")
+        print("SYNTAX ERROR in operation parenthesis")
         exit()
         
     pres = []
